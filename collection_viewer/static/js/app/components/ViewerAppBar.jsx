@@ -16,7 +16,7 @@ export default class ViewerAppBar extends React.Component{
     const appBarMenu = (
       <Tabs inkBarStyle={{'backgroundColor': 'rgba(255, 166, 77, 1)'}} className={'appBarMenu'} value={this.state.activeTab}
           onChange={this.onChange}>
-        <Tab label='Activations' value={'/'} className={'appBarTab'}>
+        <Tab label='Collections' value={'/'} className={'appBarTab'}>
         </Tab>
         <Tab label='Map Composer' value={'composer'} className={'appBarTab'}>
         </Tab>
@@ -26,7 +26,7 @@ export default class ViewerAppBar extends React.Component{
     );
     return (
       <AppBar className={'appBar'}
-          title='Copernicus EMS Mapping - Activation Viewer'
+          title='Collection Viewer'
           onTitleTouchTap={() => window.location = '/'}
           showMenuIconButton={false}
           children={appBarMenu} />

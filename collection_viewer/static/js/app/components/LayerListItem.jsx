@@ -129,8 +129,8 @@ const messages = defineMessages({
   },
   removebuttonlabel: {
     id: 'layerlist.removebuttonlabel',
-    description: 'Tooltip for the remove activation button',
-    defaultMessage: 'Remove activation'
+    description: 'Tooltip for the remove collection button',
+    defaultMessage: 'Remove collection'
   },
   editbuttonlabel: {
     id: 'layerlist.editbuttonlabel',
@@ -317,7 +317,7 @@ class LayerListItem extends React.Component {
       && ((source && source.getExtent) || layer.get('EX_GeographicBoundingBox')) && this.props.showZoomTo);
     let allowDownload = (this.props.showDownload && !(layer instanceof ol.layer.Group));
     let allowRemove = (this.props.allowRemove && layer.get('type') !== 'base' && layer.get('isRemovable')
-      && layer.get('act_id') !== undefined);
+      && layer.get('coll_id') !== undefined);
 
     let layerTools;
 
@@ -338,7 +338,7 @@ class LayerListItem extends React.Component {
     let input;
     if (layer.get('type') === 'base') {
       input = (<RadioButton disabled={this.state.disabled} checked={this.state.checked} label={this.props.title} value={this.props.title} onCheck={this._handleChange.bind(this)} disableTouchRipple={true}/>);
-    } else if(!layer.get('act_id')){
+    } else if(!layer.get('coll_id')){
       input = (<Checkbox style={{'display': 'inline-block', 'width': 'calc(100% - 85px)'}} checked={this.state.checked} label={this.props.title} labelStyle={this.props.layer.get('emptyTitle') ? {fontStyle: 'italic'} : undefined} onCheck={this._handleChange.bind(this)} disableTouchRipple={true}/>);
     } else{
       input = (<div style={{'display': 'inline-block'}}><label style={{'position': 'relative', 'top': '-5px'}}>{this.props.title}</label></div>);
@@ -349,8 +349,8 @@ class LayerListItem extends React.Component {
       (this.props.layer instanceof ol.layer.Image && this.props.layer.getSource() instanceof ol.source.ImageWMS))) {
       legend = <WMSLegend layer={this.props.layer} />;
     }
-    // When the layer is an activation reduce the bottom padding
-    let innerDivStyle = this.props.layer.get('act_id') == undefined ? {'paddingTop':'8px','paddingBottom':'0px'} : {'paddingTop':'20px','paddingBottom':'0px'};
+    // When the layer is an collection reduce the bottom padding
+    let innerDivStyle = this.props.layer.get('coll_id') == undefined ? {'paddingTop':'8px','paddingBottom':'0px'} : {'paddingTop':'20px','paddingBottom':'0px'};
 
     let collapseElement = this.props.collapsible ?
             this.state.open ?

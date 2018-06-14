@@ -32,7 +32,7 @@
   {
     "id": "addwmslayermodal.title",
     "description": "Title for the modal Add layer dialog",
-    "defaultMessage": "Add Activations"
+    "defaultMessage": "Add Collections"
   },
   {
     "id": "addwmslayermodal.nolayertitle",

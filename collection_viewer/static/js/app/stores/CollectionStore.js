@@ -3,29 +3,29 @@ import {EventEmitter} from 'events';
 import LayerConstants from 'boundless-sdk/constants/LayerConstants';
 
 
-class ActivationStore extends EventEmitter {
+class CollectionStore extends EventEmitter {
   constructor(){
     super();
-    this.activations = [];
+    this.collections = [];
   }
 
-  addActivation(activation){
-    this.activations.push(activation);
+  addCollection(collection){
+    this.collections.push(collection);
     this.emitChange();
   }
 
-  removeActivation(activation_id){
+  removeCollection(collection_id){
     let self = this;
-    self.activations.forEach(function(activation, index){
-      if (activation.activation_id === activation_id){
-        self.activations.splice(index, 1);
+    self.collections.forEach(function(collection, index){
+      if (collection.collection_id === collection_id){
+        self.collections.splice(index, 1);
       }
     });
     self.emitChange();
   }
 
-  getActivations(){
-    return this.activations;
+  getCollections(){
+    return this.collections;
   }
 
   emitChange() {
@@ -41,20 +41,20 @@ class ActivationStore extends EventEmitter {
   }
 } 
 
-var _activationStore = new ActivationStore();
+var _collectionStore = new CollectionStore();
 
-export default _activationStore;
+export default _collectionStore;
 
 AppDispatcher.register(function(payload){
   let action = payload.action;
   switch (action.type) {
-    case 'add-activation':
-      _activationStore.addActivation(action.activation);
+    case 'add-collection':
+      _collectionStore.addCollection(action.collection);
       break;
     case LayerConstants.REMOVE_LAYER:
       let layer = action.layer;
-      if (layer.get('act_id')){
-        _activationStore.removeActivation(layer.get('act_id'));
+      if (layer.get('coll_id')){
+        _collectionStore.removeCollection(layer.get('coll_id'));
       }
       break;
     default:

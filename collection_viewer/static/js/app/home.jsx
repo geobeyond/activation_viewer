@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ol from 'openlayers';
 import MapPanel from 'boundless-sdk/components/MapPanel';
-import LatestActivations from './components/ActivationsGrid.jsx';
+import LatestCollections from './components/CollectionsGrid.jsx';
 import ViewerAppBar from './components/ViewerAppBar.jsx';
 import CustomTheme from './theme';
 
@@ -53,11 +53,11 @@ class App extends React.Component {
         <ViewerAppBar />
         <div id="ec-logo"></div>
         <div id="title">
-          <p>The Activation Viewer is a platform for fast visualization and distribution of images used and crisis information layers which were produced within the Mapping component of the Copernicus Emergency Management Service.</p>
-          <p>The platform was developed by the Joint Research Centre, Disaster Risk Management Unit</p>
+          <p>The Collection Viewer is an application for fast visualization and distribution of grouped and nested layers.</p>
+          <p>The platform was developed by Geobeyond with credits to Simone Dalmasso for the initial huge work</p>
         </div>
         <MapPanel id='map' map={map} useHistory={false} />
-        <LatestActivations map={map} />
+        <LatestCollections map={map} />
       </div>
     );
   }

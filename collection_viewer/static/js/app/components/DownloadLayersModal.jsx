@@ -77,7 +77,7 @@ class DownloadLayersModal extends React.Component {
     };
     var successCb = function(xmlhttp) {
       delete self._request;
-      self.setState({actInfo: JSON.parse(xmlhttp.response)});
+      self.setState({collInfo: JSON.parse(xmlhttp.response)});
     };
     self._request = util.doGET(url, successCb, failureCb);
   }
@@ -96,7 +96,7 @@ class DownloadLayersModal extends React.Component {
     this.setState({
       errorOpen: true,
       error: true,
-      actInfo: null,
+      collInfo: null,
       msg: msg
     });
   }
@@ -109,7 +109,7 @@ class DownloadLayersModal extends React.Component {
     this._getCaps();
     this.setState({open: true});
     this.query = {
-      activations: [],
+      collections: [],
       map_types: [],
       layer_types: []
     };
@@ -125,12 +125,12 @@ class DownloadLayersModal extends React.Component {
 
   download() {
     let self = this;
-    let url = '/activations/download?query=' + JSON.stringify(this.query);
+    let url = '/collections/download?query=' + JSON.stringify(this.query);
     util.doGET(url,
     function(xmlhttp){
       let dl = document.createElement('a');
       dl.setAttribute('href', url);
-      dl.setAttribute('download', 'EMS_activations_layers.zip');
+      dl.setAttribute('download', 'GeoNode_collections_layers.zip');
       dl.click();
     },
     function(xmlhttp){
@@ -138,22 +138,22 @@ class DownloadLayersModal extends React.Component {
     });
   }
 
-  getActivationMarkup(actInfo) {
-    var activations;
-    if (actInfo.objects){
-      activations = actInfo.objects.map(activation => {
+  getCollectionMarkup(collInfo) {
+    var collections;
+    if (collInfo.objects){
+      collections = collInfo.objects.map(collection => {
         return (
           <ListItem
             style={{float: 'left', padding: '16px 16px 16px 50px'}}
-            leftCheckbox={<Checkbox onCheck={this._onCheck.bind(this, 'activations', activation.activation_id)} />}
-            key={activation.activation_id}
+            leftCheckbox={<Checkbox onCheck={this._onCheck.bind(this, 'collections', collection.collection_id)} />}
+            key={collection.collection_id}
             primaryText={
-              <div className='layer-title-empty'>{activation.activation_id} - {activation.disaster_type.name} in {activation.region.name}</div>
+              <div className='layer-title-empty'>{collection.collection_id} - {collection.disaster_type.name} in {collection.region.name}</div>
             }/>
         );
       });
     }
-    return activations;
+    return collections;
   }
 
 
@@ -187,9 +187,9 @@ class DownloadLayersModal extends React.Component {
 
   render() {
 
-    let activations;
-    if (this.state.actInfo) {
-      activations = this.getActivationMarkup(this.state.actInfo);
+    let collections;
+    if (this.state.collInfo) {
+      collections = this.getCollectionMarkup(this.state.collInfo);
     }
     let map_types = this.getMapTypeList();
     let layer_types = this.getLayersList();
@@ -217,13 +217,13 @@ class DownloadLayersModal extends React.Component {
         open={this.state.open}
         onRequestClose={this.close.bind(this)}>
         <TextField
-          floatingLabelText={'Filter activations'}
+          floatingLabelText={'Filter collections'}
           floatingLabelStyle={{color: CustomTheme.palette.primary3Color}}
           onChange={this._onFilterChange.bind(this)}
         />
         <List>
-        <Subheader style={{float: 'left'}}>Select activations</Subheader>
-        {activations}
+        <Subheader style={{float: 'left'}}>Select collections</Subheader>
+        {collections}
         <Subheader style={{float: 'left'}}>Filter by map type</Subheader>
         {map_types}
         <Subheader style={{float: 'left'}}>Filter by layer type</Subheader>
@@ -232,7 +232,7 @@ class DownloadLayersModal extends React.Component {
           leftCheckbox={<Checkbox onCheck={this._onCheck.bind(this, 'layer_types', 'observed_event')} />}
           key='observed_event'
           primaryText={
-            <div className='layer-title-empty'>Crisis information</div>
+            <div className='layer-title-empty'>Collection information</div>
           }/>
         {layer_types}
         </List>

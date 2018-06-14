@@ -36,8 +36,8 @@
   },
   {
     "id": "layerlist.removebuttonlabel",
-    "description": "Tooltip for the remove activation button",
-    "defaultMessage": "Remove activation"
+    "description": "Tooltip for the remove collection button",
+    "defaultMessage": "Remove collection"
   },
   {
     "id": "layerlist.editbuttonlabel",

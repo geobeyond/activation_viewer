@@ -23,7 +23,7 @@ import LayerIdService from 'boundless-sdk/services/LayerIdService';
 import LayerStore from 'boundless-sdk/stores/LayerStore';
 import LayerListItem from './LayerListItem.jsx';
 import Label from 'boundless-sdk/components/Label';
-import AddActivationsModal from './AddActivationsModal.jsx';
+import AddCollectionsModal from './AddCollectionsModal.jsx';
 import DownloadLayersModal from './DownloadLayersModal.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 import Button from 'boundless-sdk/components/Button';
@@ -54,8 +54,8 @@ const messages = defineMessages({
   },
   addlayertext: {
     id: 'layerlist.addlayertext',
-    description: 'Text for Add activations button',
-    defaultMessage: 'Add Activation'
+    description: 'Text for Add collections button',
+    defaultMessage: 'Add Collection'
   },
   savemaptext: {
     id: 'layerlist.savemap',
@@ -84,7 +84,7 @@ const messages = defineMessages({
  * ```
  */
 @pureRender
-class ActivationsList extends React.Component {
+class CollectionsList extends React.Component {
   constructor(props, context) {
     super(props);
     LayerStore.bindMap(this.props.map);
@@ -120,7 +120,7 @@ class ActivationsList extends React.Component {
     var layerNodes = [];
     for (var i = 0, ii = layers.length; i < ii; ++i) {
       var lyr = layers[i];
-      if (lyr.get('act_id') && layerNodes.length > 0){
+      if (lyr.get('coll_id') && layerNodes.length > 0){
         layerNodes.push(<Divider inset={true} key={'divider' + i} />);
       }
       if (!this.props.filter || this.props.filter(lyr) === true) {
@@ -184,7 +184,7 @@ class ActivationsList extends React.Component {
           nestedItems={children}
           title={lyr.get('title')}
           disableTouchRipple={true}
-          open={lyr.get('act_id') ? true : false}
+          open={lyr.get('coll_id') ? true : false}
           collapsible={true}/>
         );
       } else {
@@ -243,7 +243,7 @@ class ActivationsList extends React.Component {
    /* Serialize the state of the map
    * center: the center of the map's view
    * zoom: current zoom of the map's view
-   * activations: array of the activations on the map containning information
+   * collections: array of the collections on the map containning information
    *  of their layers. Only the layers are counted and not the mapsets as they
    *  will be loaded anyway and have no parameters
    */
@@ -252,30 +252,30 @@ class ActivationsList extends React.Component {
    let map_state = {
      center: map.getView().getCenter(),
      zoom: map.getView().getZoom(),
-     activations: []
+     collections: []
    };
 
-   let activations = LayerStore.getState().layers;
-   // Loop over activations (instance of Grops) to get config
-   activations.forEach(act_data => {
-    if (act_data instanceof ol.layer.Group){
-     let activation = {
-      id: act_data.get('act_id'),
+   let collections = LayerStore.getState().layers;
+   // Loop over collections (instance of Grops) to get config
+   collections.forEach(coll_data => {
+    if (coll_data instanceof ol.layer.Group){
+     let collection = {
+      id: coll_data.get('coll_id'),
       layers: {}
      }
      // Loop over mapsets, we only need layers config
-     act_data.get('layers').forEach(mapset => {
+     coll_data.get('layers').forEach(mapset => {
       // Loop over layers
       mapset.get('layers').forEach((layer, index) => {
-       // Push layer config in activation
-       activation.layers[layer.get('djmpId')] = {
+       // Push layer config in collection
+       collection.layers[layer.get('djmpId')] = {
         opacity: layer.getOpacity(),
         index: index
        }
       });
      });
-     // Push activation config in map_state
-     map_state.activations.push(activation);
+     // Push collection config in map_state
+     map_state.collections.push(collection);
     }
    });
    return map_state;
@@ -288,7 +288,7 @@ class ActivationsList extends React.Component {
     // If the map is already saved, do a PUT request
     let is_put = copy ? false : this.state.saved;
 
-    let url = is_put ? '/api/act-maps/' + global.location.pathname.split('/')[2] : '/api/act-maps/';
+    let url = is_put ? '/api/coll-maps/' + global.location.pathname.split('/')[2] : '/api/coll-maps/';
     let csrf;
     for (let cookie in document.cookie.split(';')) {
       if (cookie.indexOf('csrftoken') !== -1){
@@ -366,7 +366,7 @@ class ActivationsList extends React.Component {
                 style={{
                   margin: '5px'
                 }}/>
-            <AddActivationsModal
+            <AddCollectionsModal
               sources={this.props.addLayer.sources}
               map={this.props.map}
               ref='addlayermodal'
@@ -403,7 +403,7 @@ class ActivationsList extends React.Component {
   }
 }
 
-ActivationsList.propTypes = {
+CollectionsList.propTypes = {
   /**
    * The map whose layers should show up in this layer list.
    */
@@ -496,7 +496,7 @@ ActivationsList.propTypes = {
   showError: React.PropTypes.func
 };
 
-ActivationsList.defaultProps = {
+CollectionsList.defaultProps = {
   showZoomTo: false,
   allowReordering: false,
   allowEditing: false,
@@ -512,12 +512,12 @@ ActivationsList.defaultProps = {
   showOnStart: false
 };
 
-ActivationsList.contextTypes = {
+CollectionsList.contextTypes = {
   muiTheme: React.PropTypes.object
 };
 
-ActivationsList.childContextTypes = {
+CollectionsList.childContextTypes = {
   muiTheme: React.PropTypes.object.isRequired
 };
 
-export default injectIntl(DragDropContext(HTML5Backend)(ActivationsList));
+export default injectIntl(DragDropContext(HTML5Backend)(CollectionsList));

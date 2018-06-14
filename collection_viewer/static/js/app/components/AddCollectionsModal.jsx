@@ -57,7 +57,7 @@ const messages = defineMessages({
   title: {
     id: 'addwmslayermodal.title',
     description: 'Title for the modal Add layer dialog',
-    defaultMessage: 'Add Activations'
+    defaultMessage: 'Add Collections'
   },
   nolayertitle: {
     id: 'addwmslayermodal.nolayertitle',
@@ -102,10 +102,10 @@ const messages = defineMessages({
 });
 
 /**
- * Modal window to add activations from http json request
+ * Modal window to add collections from http json request
  */
 @pureRender
-class AddActivationsModal extends React.Component {
+class AddCollectionsModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,15 +127,15 @@ class AddActivationsModal extends React.Component {
   }
 
   _initFromHash(){
-    // pre load activations if listed in the url's hash
+    // pre load collections if listed in the url's hash
     let hash = global.location.hash.replace('#', '');
-    let activations = hash.split('/');
-    activations.forEach(activation_id => {
-      this._addActivation(activation_id)
+    let collections = hash.split('/');
+    collections.forEach(collection_id => {
+      this._addCollection(collection_id)
     })
   }
 
-  _initFromSaved(actMapId){
+  _initFromSaved(collMapId){
     // init the map from a json config
     let self = this;
     let failure = xmlhttp => {
@@ -153,11 +153,11 @@ class AddActivationsModal extends React.Component {
       this.props.map.getView().setCenter(initial_config.center);
       this.props.map.getView().setZoom(initial_config.zoom);
 
-      initial_config.activations.forEach(act_config =>{
-        this._addActivation(act_config.id, act_config.layers);
+      initial_config.collections.forEach(coll_config =>{
+        this._addCollection(coll_config.id, coll_config.layers);
       });
     };
-    self.request = util.doGET('/api/act-maps/' + actMapId, success, failure);
+    self.request = util.doGET('/api/coll-maps/' + collMapId, success, failure);
   }
 
   componentDidMount() {
@@ -187,7 +187,7 @@ class AddActivationsModal extends React.Component {
     };
     var successCb = function(xmlhttp) {
       delete self._request;
-      self.setState({actInfo: JSON.parse(xmlhttp.response)});
+      self.setState({collInfo: JSON.parse(xmlhttp.response)});
     };
     self._request = util.doGET(url, successCb, failureCb);
   }
@@ -196,7 +196,7 @@ class AddActivationsModal extends React.Component {
     this.setState({
       errorOpen: true,
       error: true,
-      actInfo: null,
+      collInfo: null,
       msg: msg
     });
   }
@@ -211,16 +211,16 @@ class AddActivationsModal extends React.Component {
     }
   }
 
-  _addActivation(activation_id, initial_config=null) {
-    // Add a whole activation to the map, managing grouping in mapsets
+  _addCollection(collection_id, initial_config=null) {
+    // Add a whole collection to the map, managing grouping in mapsets
     var map = this.props.map;
     var url = this.state.sources.full;
 
     var successCb = xmlhttp => {
-      let act_data = JSON.parse(xmlhttp.response);
+      let coll_data = JSON.parse(xmlhttp.response);
       let map_sets = new ol.Collection();
 
-      act_data.map_sets.forEach(map_set => {
+      coll_data.map_sets.forEach(map_set => {
         let layers = new ol.Collection();
 
         map_set.layers.forEach(layer => {
@@ -257,7 +257,7 @@ class AddActivationsModal extends React.Component {
             // if there's the initial config then only load layers in the config
             layers.insertAt(layer_conf.index, the_layer);
           }else if(!initial_config){
-            // if no initial config then load the whole activation as it is
+            // if no initial config then load the whole collection as it is
             layers.push(the_layer);
           }
         });
@@ -279,30 +279,30 @@ class AddActivationsModal extends React.Component {
         }
       });
 
-      let act_extent = [
-        parseFloat(act_data.bbox_x0),
-        parseFloat(act_data.bbox_y0),
-        parseFloat(act_data.bbox_x1),
-        parseFloat(act_data.bbox_y1)
+      let coll_extent = [
+        parseFloat(coll_data.bbox_x0),
+        parseFloat(coll_data.bbox_y0),
+        parseFloat(coll_data.bbox_x1),
+        parseFloat(coll_data.bbox_y1)
       ];
 
-      let act_group = new ol.layer.Group({
-        title: act_data.activation_id,
+      let coll_group = new ol.layer.Group({
+        title: coll_data.collection_id,
         layers: map_sets,
-        EX_GeographicBoundingBox: act_extent,
+        EX_GeographicBoundingBox: coll_extent,
         isRemovable: true
       });
-      // Set the Activation id in this group used for further handling in the layer list
-      act_group.set('act_id', act_data.activation_id);
-      map.addLayer(act_group);
+      // Set the Collection id in this group used for further handling in the layer list
+      coll_group.set('coll_id', coll_data.collection_id);
+      map.addLayer(coll_group);
       AppDispatcher.dispatch({
         action: {
-          type: 'add-activation',
-          activation: act_data
+          type: 'add-collection',
+          collection: coll_data
        }
       });
       let view = map.getView();
-      view.fit(ol.proj.transformExtent(act_extent, 'EPSG:4326', view.getProjection()), map.getSize());
+      view.fit(ol.proj.transformExtent(coll_extent, 'EPSG:4326', view.getProjection()), map.getSize());
     }
 
     var failureCb = xmlhttp => {
@@ -313,42 +313,42 @@ class AddActivationsModal extends React.Component {
       }
     };
 
-    //  only add the activation if is not on the map already
-    let act_exists = false;
+    //  only add the collection if is not on the map already
+    let coll_exists = false;
     map.getLayers().forEach(layer => {
-      if (layer.get('act_id') == activation_id){
-        act_exists = true;
+      if (layer.get('coll_id') == collection_id){
+        coll_exists = true;
       }
     });
-    if (!act_exists){
-      util.doGET(url + activation_id + '/', successCb, failureCb);
+    if (!coll_exists){
+      util.doGET(url + collection_id + '/', successCb, failureCb);
     }
   }
 
-  _getActivationMarkup(actInfo) {
-    var activations;
-    if (actInfo.objects){
-      activations = actInfo.objects.map(activation => {
+  _getCollectionMarkup(collInfo) {
+    var collections;
+    if (collInfo.objects){
+      collections = collInfo.objects.map(collection => {
         return (
           <ListItem
             style={{display: 'block'}}
-            leftCheckbox={<Checkbox onCheck={this._onCheck.bind(this, activation)} />}
+            leftCheckbox={<Checkbox onCheck={this._onCheck.bind(this, collection)} />}
             rightIcon={ <FolderIcon />}
             initiallyOpen={true}
-            key={activation.activation_id}
+            key={collection.collection_id}
             primaryText={
-              <div className='layer-title-empty'>{activation.activation_id} - {activation.disaster_type.name} in {activation.region.name}</div>
+              <div className='layer-title-empty'>{collection.collection_id} - {collection.disaster_type.name} in {collection.region.name}</div>
             }/>
         );
       });
     }
-    return activations;
+    return collections;
   }
-  _onCheck(activation, proxy, checked) {
+  _onCheck(collection, proxy, checked) {
     if (checked) {
-      this._checkedLayers.push(activation);
+      this._checkedLayers.push(collection);
     } else {
-      var idx = this._checkedLayers.indexOf(activation)
+      var idx = this._checkedLayers.indexOf(collection)
       if (idx > -1) {
         this._checkedLayers.splice(idx, 1);
       }
@@ -364,9 +364,9 @@ class AddActivationsModal extends React.Component {
     this.setState({open: false});
   }
 
-  addActivations() {
+  addCollections() {
     for (var i = 0, ii = this._checkedLayers.length; i < ii; ++i) {
-      this._addActivation(this._checkedLayers[i].activation_id);
+      this._addCollection(this._checkedLayers[i].collection_id);
     }
   }
 
@@ -380,9 +380,9 @@ class AddActivationsModal extends React.Component {
     this._checkedLayers = [];
     const {formatMessage} = this.props.intl;
     var layers;
-    if (this.state.actInfo) {
-      var actInfo = this._getActivationMarkup(this.state.actInfo);
-      layers = <List>{actInfo}</List>;
+    if (this.state.collInfo) {
+      var collInfo = this._getCollectionMarkup(this.state.collInfo);
+      layers = <List>{collInfo}</List>;
     }
     var error;
     if (this.state.error === true) {
@@ -399,7 +399,7 @@ class AddActivationsModal extends React.Component {
       <FlatButton
         primary={true}
         label={formatMessage(messages.addbutton)}
-        onTouchTap={this.addActivations.bind(this)}
+        onTouchTap={this.addCollections.bind(this)}
         labelStyle={{color: CustomTheme.palette.textColor}}
       />,
       <FlatButton
@@ -422,7 +422,7 @@ class AddActivationsModal extends React.Component {
   }
 }
 
-AddActivationsModal.propTypes = {
+AddCollectionsModal.propTypes = {
   /**
    * The ol3 map to upload to.
    */
@@ -452,8 +452,8 @@ AddActivationsModal.propTypes = {
   setSaved: React.PropTypes.func
 };
 
-AddActivationsModal.childContextTypes = {
+AddCollectionsModal.childContextTypes = {
   muiTheme: React.PropTypes.object.isRequired
 };
 
-export default injectIntl(AddActivationsModal, {withRef: true});
+export default injectIntl(AddCollectionsModal, {withRef: true});

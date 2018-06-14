@@ -1,6 +1,6 @@
 import React from 'react';
 import {GridList} from 'material-ui/GridList';
-import ActSnippet from './ActivationSnippet.jsx';
+import CollSnippet from './CollectionSnippet.jsx';
 import ol from 'openlayers';
 import 'whatwg-fetch';
 import queryString from 'query-string';
@@ -19,11 +19,11 @@ const styles = {
   },
 };
 
-export default class LatestActivations extends React.Component {
+export default class LatestCollections extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      'activations': [],
+      'collections': [],
       'query': {}
     }
   }
@@ -40,7 +40,7 @@ export default class LatestActivations extends React.Component {
   _doQuery(){
     let self = this;
     let query_string = this._prepareQueryString();
-    let url = query_string === '' ? ACTIVATIONS_API : ACTIVATIONS_API + '?' + query_string;
+    let url = query_string === '' ? COLLECTIONS_API : COLLECTIONS_API + '?' + query_string;
     fetch(url,{
       credentials: 'same-origin'
     })
@@ -49,7 +49,7 @@ export default class LatestActivations extends React.Component {
     })
     .then(function(json){
       self.setState({
-        'activations': json.objects
+        'collections': json.objects
       });
     });
   }
@@ -86,12 +86,12 @@ export default class LatestActivations extends React.Component {
     });
     
     return (
-      <div id="latest_activations" style={styles.root}>
+      <div id="latest_collections" style={styles.root}>
         <TextField
             hintText="Search"
             floatingLabelText="Search"
             onChange={this._onSearch}
-            className={'activationsSearch'}
+            className={'collectionsSearch'}
             floatingLabelFocusStyle={{'color': 'rgba(255, 166, 77, 1)'}}
           />
         <GridList
@@ -100,15 +100,15 @@ export default class LatestActivations extends React.Component {
           padding={20}
           style={styles.gridList}
         >
-          {this.state.activations.map((activation) => (
-            <ActSnippet
-              key={activation.activation_id}
-              activation={activation}
+          {this.state.collections.map((collection) => (
+            <CollSnippet
+              key={collection.collection_id}
+              collection={collection}
               map={this.props.map}
               interaction={selectInteraction}
             > 
-            <img src={activation.thumbnail_url} />
-            </ActSnippet>
+            <img src={collection.thumbnail_url} />
+            </CollSnippet>
           ))}
         </GridList>
       </div>

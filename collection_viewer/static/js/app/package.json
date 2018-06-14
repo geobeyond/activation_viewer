@@ -1,10 +1,10 @@
 {
-  "name": "Activation-Viewer",
+  "name": "Collection-Viewer",
   "version": "2.0.0",
-  "description": "Activation Viewer",
+  "description": "Collection Viewer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/simod/activation-viewer.git"
+    "url": "https://github.com/geobeyond/collection_viewer.git"
   },
   "scripts": {
     "createdir": "node createbuild.js",
@@ -19,7 +19,7 @@
     "createzip": "node createpackage.js",
     "package": "node_modules/.bin/npm-run-all build createzip"
   },
-  "author": "simod",
+  "author": "geobeyond",
   "license": "Apache-2.0",
   "dependencies": {
     "boundless-sdk": "0.10.15",

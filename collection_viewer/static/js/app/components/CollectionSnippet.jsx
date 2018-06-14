@@ -108,11 +108,11 @@ function getStyles(props, context) {
 
 
 /*
-* A single snippet fo the home page activations grid. Each snippet renders it's own feature on the map controlling the
+* A single snippet fo the home page collections grid. Each snippet renders it's own feature on the map controlling the
 * hover effect on both the feature and the html component.
 */
 
-class ActSnippet extends Component {
+class CollSnippet extends Component {
   constructor(props){
     super();
     this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this);
@@ -173,15 +173,15 @@ class ActSnippet extends Component {
     let view = this.props.map.getView();
 
     let viewExtent = view.calculateExtent(this.props.map.getSize());
-    let layerExtent = this._getActivationGeometry().getExtent();
+    let layerExtent = this._getCollectionGeometry().getExtent();
 
     if (ol.extent.containsExtent(viewExtent, layerExtent)){
 
-      view.fit(this._getActivationGeometry(),
+      view.fit(this._getCollectionGeometry(),
         this.props.map.getSize(),
         {
           maxZoom: 10,
-          center: ol.extent.getCenter(self._getActivationGeometry().getExtent()),
+          center: ol.extent.getCenter(self._getCollectionGeometry().getExtent()),
           duration: 300
         }
       );
@@ -221,15 +221,15 @@ class ActSnippet extends Component {
   }
 
   onSnippetclick(){
-    window.location=AppConfig.COMPOSER_URL + '#' + this.props.activation.activation_id;
+    window.location=AppConfig.COMPOSER_URL + '#' + this.props.collection.collection_id;
   }
 
   _selectComponent(){
     let thisFeature = this.state.layer.getSource().getFeatures()[0];
     this.setState({
-      selectClass: 'act_snippet_selected'
+      selectClass: 'coll_snippet_selected'
     });
-    thisFeature.setStyle(getFeatureStyle(this.props.activation.activation_id, true));
+    thisFeature.setStyle(getFeatureStyle(this.props.collection.collection_id, true));
   }
 
   _deselectComponent(){
@@ -237,15 +237,15 @@ class ActSnippet extends Component {
     this.setState({
       selectClass: ''
     });
-    thisFeature.setStyle(getFeatureStyle(this.props.activation.activation_id, false));
+    thisFeature.setStyle(getFeatureStyle(this.props.collection.collection_id, false));
   }
 
-  _getActivationGeometry(){
+  _getCollectionGeometry(){
     let bbox = [
-      parseFloat(this.props.activation.bbox_x0),
-      parseFloat(this.props.activation.bbox_y0),
-      parseFloat(this.props.activation.bbox_x1),
-      parseFloat(this.props.activation.bbox_y1)
+      parseFloat(this.props.collection.bbox_x0),
+      parseFloat(this.props.collection.bbox_y0),
+      parseFloat(this.props.collection.bbox_x1),
+      parseFloat(this.props.collection.bbox_y1)
     ];
     let geometry = ol.geom.Polygon.fromExtent(bbox);
     geometry.transform('EPSG:4326', 'EPSG:3857');
@@ -253,7 +253,7 @@ class ActSnippet extends Component {
   }
 
   _addBBoxToMap(){
-    var layer = this._buildOlBoxOverlay(this._getActivationGeometry(), this.props.activation.activation_id);
+    var layer = this._buildOlBoxOverlay(this._getCollectionGeometry(), this.props.collection.collection_id);
     this.props.map.addLayer(layer);
     this.setState({
       layer: layer
@@ -320,7 +320,7 @@ class ActSnippet extends Component {
       containerElement,
       viewerButton,
       map,
-      activation,
+      collection,
       interaction,
       ...other,
     } = this.props;
@@ -331,11 +331,11 @@ class ActSnippet extends Component {
 
 
     let titleBar = (
-      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function(){window.location=AppConfig.COMPOSER_URL + '#' + activation.activation_id}}>
+      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function(){window.location=AppConfig.COMPOSER_URL + '#' + collection.collection_id}}>
         <div style={prepareStyles(styles.titleWrap)}>
-          <div style={prepareStyles(styles.title)}>{this.props.activation.activation_id}</div>
+          <div style={prepareStyles(styles.title)}>{this.props.collection.collection_id}</div>
           <div style={prepareStyles(styles.subtitle)}>
-          {this.props.activation.disaster_type.name} in {this.props.activation.region.name}
+          {this.props.collection.disaster_type.name} in {this.props.collection.region.name}
           </div>
         </div>
         {actionIcon ? (<div style={prepareStyles(styles.actionIcon)}>{actionIcon}</div>) : null}
@@ -388,7 +388,7 @@ class ActSnippet extends Component {
   }
 }
 
-ActSnippet.propTypes = {
+CollSnippet.propTypes = {
   /**
    * An IconButton element to be used as secondary action target
    * (primary action target is the tile itself).
@@ -449,13 +449,13 @@ ActSnippet.propTypes = {
 
   map: PropTypes.instanceOf(ol.Map),
 
-  activation: PropTypes.object,
+  collection: PropTypes.object,
 
   interaction: PropTypes.instanceOf(ol.interaction.Select),
 
 };
 
-ActSnippet.defaultProps = {
+CollSnippet.defaultProps = {
   titlePosition: 'bottom',
   titleBackground: 'rgba(0, 0, 0, 0.4)',
   actionPosition: 'right',
@@ -465,8 +465,8 @@ ActSnippet.defaultProps = {
   viewerButton: true,
 };
 
-ActSnippet.contextTypes = {
+CollSnippet.contextTypes = {
   muiTheme: PropTypes.object.isRequired,
 };
 
-export default ActSnippet;
+export default CollSnippet;

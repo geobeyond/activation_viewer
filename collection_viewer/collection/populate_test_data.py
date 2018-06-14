@@ -1,12 +1,12 @@
 from geonode.layers.models import Layer
 
-from .models import Activation, MapProduct, DisasterType
+from .models import Collectionn, MapProduct, DisasterType
 
-def create_activation_data():
+def create_collection_data():
 
-    activation_data = [
+    collection_data = [
         {
-            'activation_id': 'activ1',
+            'collection_id': 'coll1',
             'bbox_x0': 20,
             'bbox_x1': 30,
             'bbox_y0': 20,
@@ -16,7 +16,7 @@ def create_activation_data():
             'disaster_type': 1, 
         }, 
         {
-            'activation_id': 'activ2',
+            'collection_id': 'coll2',
             'bbox_x0': 40,
             'bbox_x1': 40,
             'bbox_y0': 40,
@@ -30,7 +30,7 @@ def create_activation_data():
     map_product_data = [
         {
             'name': 'mp1',
-            'activation': 1,
+            'collection': 1,
             'layers': [1, 2],
             'type': 'reference',
             'bbox_x0': 25,
@@ -40,7 +40,7 @@ def create_activation_data():
         },
         {
             'name': 'mp2',
-            'activation': 2,
+            'collection': 2,
             'layers': [3, 4],
             'type': 'grading',
             'bbox_x0': 24,
@@ -53,13 +53,13 @@ def create_activation_data():
     flood = DisasterType.objects.create(name='Flood', slug='flood')
     eq = DisasterType.objects.create(name='Earthquake', slug='eq')
 
-    for activation in activation_data:
-        Activation.objects.create(disaster_type=flood, **activation)
+    for collection in collection_data:
+        Collection.objects.create(disaster_type=flood, **collection)
 
     for mp_data in map_product_data:
-        activation = Activation.objects.get(id=mp_data['activation'])
-        mp_data.pop('activation')
+        collection = Collection.objects.get(id=mp_data['collection'])
+        mp_data.pop('collection')
         layers = mp_data.pop('layers')
-        mp = MapProduct.objects.create(activation=activation, **mp_data)
+        mp = MapProduct.objects.create(collection=collection, **mp_data)
         for l_id in layers:
             mp.layers.add(Layer.objects.get(id=l_id))

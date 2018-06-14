@@ -5,37 +5,37 @@ import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import CustomTheme from '../theme';
-import ActivationStore from '../stores/ActivationStore'
-import ActivationInfoSnippet from './ActivationInfoSnippet.jsx'
+import CollectionStore from '../stores/CollectionStore'
+import CollectionInfoSnippet from './CollectionInfoSnippet.jsx'
 
-class ActInfo extends Component {
+class CollInfo extends Component {
 
   constructor(){
     super();
     this.state = {
-      activations: []
+      collections: []
     }
   }
 
   componentWillUnmount(){
-    ActivationStore.removeChangeListener(this._onChangeCb);
+    CollectionStore.removeChangeListener(this._onChangeCb);
   }
 
   componentWillMount(){
     this._onChangeCb = this._onChange.bind(this);
-    ActivationStore.addChangeListener(this._onChangeCb);
+    CollectionStore.addChangeListener(this._onChangeCb);
     this._onChange();
   }
 
   _onChange() {
-    this.setState({activations: ActivationStore.getActivations()});
+    this.setState({collections: CollectionStore.getCollections()});
   }
 
   render(){
     return (
       <div id={'infoPanelContent'}>
-        {this.state.activations.map((activation) => (
-          <ActivationInfoSnippet key={activation.activation_id} activation={activation} />
+        {this.state.collections.map((collection) => (
+          <CollectionInfoSnippet key={collection.collection_id} collection={collection} />
         ))}
       </div>
     )
@@ -43,7 +43,7 @@ class ActInfo extends Component {
 }
 
 
-export default class ActInfoPanel extends Component {
+export default class CollInfoPanel extends Component {
 
   constructor(props){
     super(props);
@@ -58,7 +58,7 @@ export default class ActInfoPanel extends Component {
 
   render(){
     return (
-      <div id={'actInfoPanel'}>
+      <div id={'collInfoPanel'}>
         <FlatButton
           id={'openInfoPanel'}
           primary={true} 
@@ -77,7 +77,7 @@ export default class ActInfoPanel extends Component {
           transitionName="infoPanelContent"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>
-          {this.state.show ? <ActInfo /> : null}
+          {this.state.show ? <CollInfo /> : null}
         </ReactCSSTransitionGroup>
       </div>
     )

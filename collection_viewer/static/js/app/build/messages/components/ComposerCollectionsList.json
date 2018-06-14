@@ -11,8 +11,8 @@
   },
   {
     "id": "layerlist.addlayertext",
-    "description": "Text for Add activations button",
-    "defaultMessage": "Add Activation"
+    "description": "Text for Add collections button",
+    "defaultMessage": "Add Collection"
   },
   {
     "id": "layerlist.savemap",

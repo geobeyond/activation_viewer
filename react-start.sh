@@ -1,2 +1,3 @@
-cd activation_viewer/static/js/app
+cd collection_viewer/static/js/app
+npm install
 npm start

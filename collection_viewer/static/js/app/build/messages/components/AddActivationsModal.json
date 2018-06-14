@@ -1,0 +1,77 @@
+[
+  {
+    "id": "addwmslayermodal.servertypelabel",
+    "description": "Label for the combo for server type",
+    "defaultMessage": "Type"
+  },
+  {
+    "id": "addwmslayermodal.newservername",
+    "description": "Title for new server name text field",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "addwmslayermodal.newserverurl",
+    "description": "Title for new server url text field",
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "addwmslayermodal.newservermodaltitle",
+    "description": "Modal title for add new server",
+    "defaultMessage": "Add Server"
+  },
+  {
+    "id": "addwmslayermodal.addserverbutton",
+    "description": "Text for add server button",
+    "defaultMessage": "Add"
+  },
+  {
+    "id": "addwmslayermodal.refresh",
+    "description": "Refresh tooltip",
+    "defaultMessage": "Refresh Layers"
+  },
+  {
+    "id": "addwmslayermodal.title",
+    "description": "Title for the modal Add layer dialog",
+    "defaultMessage": "Add Activations"
+  },
+  {
+    "id": "addwmslayermodal.nolayertitle",
+    "description": "Title to show if layer has no title",
+    "defaultMessage": "No Title"
+  },
+  {
+    "id": "addwmslayermodal.filtertitle",
+    "description": "Title for the filter field",
+    "defaultMessage": "Filter"
+  },
+  {
+    "id": "addwmslayermodal.errormsg",
+    "description": "Error message to show the user when an XHR request fails",
+    "defaultMessage": "Error. {msg}"
+  },
+  {
+    "id": "addwmslayermodal.corserror",
+    "description": "Error message to show the user when an XHR request fails because of CORS or offline",
+    "defaultMessage": "Could not connect to GeoServer. Please verify that the server is online and CORS is enabled."
+  },
+  {
+    "id": "addwmslayermodal.inputfieldlabel",
+    "description": "Label for input field",
+    "defaultMessage": "{serviceType} URL"
+  },
+  {
+    "id": "addwmslayermodal.connectbutton",
+    "description": "Text for connect button",
+    "defaultMessage": "Connect"
+  },
+  {
+    "id": "addwmslayermodal.addbutton",
+    "description": "Text for the add button",
+    "defaultMessage": "Add"
+  },
+  {
+    "id": "addwmslayermodal.closebutton",
+    "description": "Text for close button",
+    "defaultMessage": "Close"
+  }
+]

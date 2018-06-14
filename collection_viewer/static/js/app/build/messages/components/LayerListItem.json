@@ -1,0 +1,52 @@
+[
+  {
+    "id": "layerlist.closebutton",
+    "description": "Text for close button",
+    "defaultMessage": "Close"
+  },
+  {
+    "id": "layerlist.tablemodaltitle",
+    "description": "Title for the table modal",
+    "defaultMessage": "Table"
+  },
+  {
+    "id": "layerlist.zoombuttonlabel",
+    "description": "Tooltip for the zoom to layer button",
+    "defaultMessage": "Zoom"
+  },
+  {
+    "id": "layerlist.downloadbuttonlabel",
+    "description": "Tooltip for the download layer button",
+    "defaultMessage": "Download layer"
+  },
+  {
+    "id": "layerlist.filterbuttonlabel",
+    "description": "Tooltip for the zoom button",
+    "defaultMessage": "Filter layer"
+  },
+  {
+    "id": "layerlist.labelbuttonlabel",
+    "description": "Tooltip for the label button",
+    "defaultMessage": "Edit layer label"
+  },
+  {
+    "id": "layerlist.stylingbuttonlabel",
+    "description": "Tooltip for the style layer button",
+    "defaultMessage": "Edit layer style"
+  },
+  {
+    "id": "layerlist.removebuttonlabel",
+    "description": "Tooltip for the remove activation button",
+    "defaultMessage": "Remove activation"
+  },
+  {
+    "id": "layerlist.editbuttonlabel",
+    "description": "Tooltip for the edit layer button",
+    "defaultMessage": "Edit layer"
+  },
+  {
+    "id": "layerlist.tablebuttonlabel",
+    "description": "Tooltip for the table button",
+    "defaultMessage": "Show table"
+  }
+]

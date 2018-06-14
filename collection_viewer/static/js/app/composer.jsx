@@ -7,7 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import CustomTheme from './theme';
 import ToolActions from 'boundless-sdk/actions/ToolActions';
 import Zoom from 'boundless-sdk/components/Zoom';
-import ActivationsList from './components/ComposerActivationsList.jsx';
+import CollectionsList from './components/ComposerCollectionsList.jsx';
 import LoadingPanel from 'boundless-sdk/components/LoadingPanel';
 import Select from 'boundless-sdk/components/Select';
 import HomeButton from 'boundless-sdk/components/HomeButton';
@@ -17,7 +17,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppConfig from './constants/AppConfig.js';
 import ViewerAppBar from './components/ViewerAppBar.jsx';
-import ActInfoPanel from './components/ComposerActInfoPanel.jsx'
+import CollInfoPanel from './components/ComposerCollInfoPanel.jsx'
 import AppDispatcher from 'boundless-sdk/dispatchers/AppDispatcher';
 import Snackbar from 'material-ui/Snackbar';
 
@@ -158,11 +158,11 @@ class Composer extends React.Component {
         <ViewerAppBar page={'composer'} />
         <div className='row container'>
           <div className="col tabs" id="tabs-panel">
-            <ActivationsList
+            <CollectionsList
               className={'overlays'}
               filter={filterBaseLayersOut}
               showOnStart={true}
-              addLayer={{sources: {list: AppConfig.LIST_ACTIVATIONS_URL, full: AppConfig.FULL_ACTIVATIONS_URL}}}
+              addLayer={{sources: {list: AppConfig.LIST_COLLECTIONS_URL, full: AppConfig.FULL_COLLECTIONS_URL}}}
               showOpacity={true}
               showDownload={true}
               showGroupContent={true}
@@ -176,13 +176,13 @@ class Composer extends React.Component {
           <div className="col maps">
             <MapPanel id='map' useHistory={false} map={map} />
             <LoadingPanel map={map} />
-            <ActivationsList className={'baselayers'} filter={filterBaseLayersIn} map={map}/>
+            <CollectionsList className={'baselayers'} filter={filterBaseLayersIn} map={map}/>
             <div id='home-button'><HomeButton map={map} /></div>
             <div id='zoom-buttons'><Zoom map={map} /></div>
           </div>
           {save_msg}
           {error_msg}
-          <ActInfoPanel />
+          <CollInfoPanel />
         </div>
       </div>
     );

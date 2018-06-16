@@ -1,0 +1,32 @@
+[
+  {
+    "id": "layerlist.layertitle",
+    "description": "List of layers",
+    "defaultMessage": "Layers"
+  },
+  {
+    "id": "layerlist.addlayertitle",
+    "description": "Title for Add layers button",
+    "defaultMessage": "Add layers"
+  },
+  {
+    "id": "layerlist.addlayertext",
+    "description": "Text for Add collections button",
+    "defaultMessage": "Add Collection"
+  },
+  {
+    "id": "layerlist.savemap",
+    "description": "Text for save map",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "layerlist.savemapcopy",
+    "description": "Text for save map copy",
+    "defaultMessage": "Copy"
+  },
+  {
+    "id": "layerlist.download",
+    "description": "Download layers",
+    "defaultMessage": "Download"
+  }
+]

@@ -1,2 +1,4 @@
-cd activation_viewer/static/js/app
+#! /bin/bash
+cd collection_viewer/static/js/app
+npm install
 npm run build

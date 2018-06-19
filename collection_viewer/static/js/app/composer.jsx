@@ -162,7 +162,7 @@ class Composer extends React.Component {
               className={'overlays'}
               filter={filterBaseLayersOut}
               showOnStart={true}
-              addLayer={{sources: {list: AppConfig.LIST_COLLECTIONS_URL, full: AppConfig.FULL_COLLECTIONS_URL}}}
+              addLayer={{sources: {list: '/api/collections/', full: '/api/collections-full/'}}}
               showOpacity={true}
               showDownload={true}
               showGroupContent={true}

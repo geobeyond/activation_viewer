@@ -10,7 +10,7 @@ api.register(DisasterTypeResource())
 api.register(MapSetResource())
 api.register(CollTagResource())
 api.register(CollLayerResource())
-api.register(CollivationFullResource())
+api.register(CollectionFullResource())
 api.register(CollMapResource())
 
 

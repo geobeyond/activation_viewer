@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MapSet',
             fields=[
-                ('id', modelsself.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=128)),
                 ('slug', models.SlugField()),
                 ('bbox_x0', models.DecimalField(null=True, max_digits=19, decimal_places=10, blank=True)),

@@ -27,7 +27,7 @@ class DtypeSerializer(CountJSONSerializer):
 
         resources = get_objects_for_user(
             options['user'],
-            'activation.view_activation'
+            'collection.view_collection'
         )
 
         counts = list(resources.values(options['count_type']).annotate(count=Count(options['count_type'])))
@@ -40,7 +40,7 @@ class CollAuthorization(DjangoAuthorization):
     def read_list(self, object_list, bundle):
         # permitted_ids = get_objects_for_user(
         #     bundle.request.user,
-        #     'activation.view_activation')
+        #     'collection.view_collection')
         if bundle.request.user.is_superuser:
             return object_list
         else:
@@ -48,7 +48,7 @@ class CollAuthorization(DjangoAuthorization):
 
     def read_detail(self, object_list, bundle):
         # return bundle.request.user.has_perm(
-        #     'view_activation',
+        #     'view_collection',
         #     bundle.obj)
         if bundle.request.user.is_superuser:
             return True
@@ -83,18 +83,18 @@ class MpAuthorization(DjangoAuthorization):
     def read_list(self, object_list, bundle):
         # permitted_ids = get_objects_for_user(
         #     bundle.request.user,
-        #     'activation.view_mapset')
+        #     'collection.view_mapset')
 
         if bundle.request.user.is_superuser:
             return object_list
         else:
-            return object_list.filter(activation__public=True)
+            return object_list.filter(collection__public=True)
 
     def read_detail(self, object_list, bundle):
         if bundle.request.user.is_superuser:
             return True
         else:
-            return bundle.obj.activation.public
+            return bundle.obj.collection.public
 
     def create_list(self, object_list, bundle):
         # TODO implement if needed
@@ -119,7 +119,7 @@ class MpAuthorization(DjangoAuthorization):
 
 
 class CollLayerResource(ModelResource):
-    """Light layer api for activations"""
+    """Light layer api for collections"""
 
     tms_url = fields.CharField()
     djmp_id = fields.IntegerField()
@@ -156,7 +156,7 @@ class CollLayerResource(ModelResource):
 
     class Meta:
         queryset = MapSetLayer.objects.order_by('-layer__storeType')
-        resource_name = 'actlayers'
+        resource_name = 'colllayers'
 
 
 
@@ -236,13 +236,13 @@ class CollectionFullResource(ModelResource):
         return queryset.filter(intersects)
 
     class Meta:
-        queryset = Collection.objects.distinct().order_by('-activation_time')
-        resource_name = 'activations-full'
+        queryset = Collection.objects.distinct().order_by('-collection_time')
+        resource_name = 'collections-full'
         authorization = CollAuthorization()
         filtering = {
             'disaster_type': ALL_WITH_RELATIONS,
             'region': ALL_WITH_RELATIONS,
-            'activation_id': ALL
+            'collection_id': ALL
         }
 
 class CollectionResource(ModelResource):
@@ -250,13 +250,13 @@ class CollectionResource(ModelResource):
     disaster_type = fields.ToOneField(DisasterTypeResource, 'disaster_type', full=True)
 
     class Meta:
-        queryset = Collection.objects.distinct().order_by('-activation_time')
+        queryset = Collection.objects.distinct().order_by('-collection_time')
         resource_name = 'collections'
         authorization = CollAuthorization()
         filtering = {
             'disaster_type': ALL_WITH_RELATIONS,
             'region': ALL_WITH_RELATIONS,
-            'activation_id': ALL
+            'collection_id': ALL
         }
 
     def build_filters(self, filters={}):
@@ -277,7 +277,7 @@ class CollectionResource(ModelResource):
 
         if q:
             filtered = filtered.filter(
-                Q(activation_id__icontains=q) |
+                Q(collection_id__icontains=q) |
                 Q(disaster_type__name__icontains=q) |
                 Q(region__name__icontains=q))
         return filtered

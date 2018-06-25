@@ -106,7 +106,7 @@ ROOT_URLCONF = 'collection_viewer.urls'
 DEBUG = True
 DEBUG_REACT = True
 
-REACT_DEV_SERVER = "http://cityos-sirmmo.c9users.io:8081"
+REACT_DEV_SERVER = "http://localhost:3000"
 
 ALLOWED_HOSTS = ['*']
 

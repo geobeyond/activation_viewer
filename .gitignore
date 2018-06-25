@@ -3,6 +3,6 @@ django.sh
 reset_db.sh
 start.sh
 stop.sh
-activation_viewer.egg-info
+collection_viewer\.egg-info/
 development.db
-activation_viewer/static/js/app/build
+collection_viewer/static/js/app/build

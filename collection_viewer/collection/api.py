@@ -18,11 +18,11 @@ from taggit.models import Tag
 from geonode.api.api import CountJSONSerializer, RegionResource, TagResource
 #from djmp.models import Tileset
 
-from .models import Collection, DisasterType, MapSet, CollectionMaps, MapSetLayer
+from .models import Collection, CollectionType, MapSet, CollectionMaps, MapSetLayer
 
 
 class DtypeSerializer(CountJSONSerializer):
-    """Disaster type serializer"""
+    """Collection type serializer"""
     def get_resources_counts(self, options):
 
         resources = get_objects_for_user(
@@ -159,19 +159,20 @@ class CollLayerResource(ModelResource):
         resource_name = 'colllayers'
 
 
-
-class DisasterTypeResource(ModelResource):
-    """Disaster Types API"""
+class CollectionTypeResource(ModelResource):
+    """Collection Types API"""
 
     def serialize(self, request, data, format, options={}):
-        options['count_type'] = 'disaster_type'
+        options['count_type'] = 'collection_type'
         options['user'] = request.user
 
-        return super(DisasterTypeResource, self).serialize(request, data, format, options)
+        return super(CollectionTypeResource, self).serialize(
+            request, data, format, options
+        )
 
     class Meta:
-        queryset = DisasterType.objects.all()
-        resource_name = 'disastertypes'
+        queryset = CollectionType.objects.all()
+        resource_name = 'collectiontypes'
         serializer = DtypeSerializer()
         filtering = {
             'slug': ALL,
@@ -193,7 +194,7 @@ class MapSetResource(ModelResource):
 class CollectionFullResource(ModelResource):
     """Collection api"""
     map_sets = fields.ToManyField(MapSetResource, 'mapset_set', full=True)
-    disaster_type = fields.ToOneField(DisasterTypeResource, 'disaster_type', full=True)
+    collection_type = fields.ToOneField(CollectionTypeResource, 'collection_type', full=True)
     region = fields.ToOneField(RegionResource, 'region', full=True, null=True)
     keywords = fields.ToManyField(TagResource, 'keywords', null=True)
 
@@ -240,21 +241,21 @@ class CollectionFullResource(ModelResource):
         resource_name = 'collections-full'
         authorization = CollAuthorization()
         filtering = {
-            'disaster_type': ALL_WITH_RELATIONS,
+            'collection_type': ALL_WITH_RELATIONS,
             'region': ALL_WITH_RELATIONS,
             'collection_id': ALL
         }
 
 class CollectionResource(ModelResource):
     region = fields.ToOneField(RegionResource, 'region', full=True, null=True)
-    disaster_type = fields.ToOneField(DisasterTypeResource, 'disaster_type', full=True)
+    collection_type = fields.ToOneField(CollectionTypeResource, 'collection_type', full=True)
 
     class Meta:
         queryset = Collection.objects.distinct().order_by('-collection_time')
         resource_name = 'collections'
         authorization = CollAuthorization()
         filtering = {
-            'disaster_type': ALL_WITH_RELATIONS,
+            'collection_type': ALL_WITH_RELATIONS,
             'region': ALL_WITH_RELATIONS,
             'collection_id': ALL
         }
@@ -278,7 +279,7 @@ class CollectionResource(ModelResource):
         if q:
             filtered = filtered.filter(
                 Q(collection_id__icontains=q) |
-                Q(disaster_type__name__icontains=q) |
+                Q(collection_type__name__icontains=q) |
                 Q(region__name__icontains=q))
         return filtered
 

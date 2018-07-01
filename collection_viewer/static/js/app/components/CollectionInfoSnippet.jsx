@@ -17,7 +17,7 @@ export default class CollectionInfoSnippet extends Component{
         <TableHeader displaySelectAll={false}>
           <TableRow>
             <TableHeaderColumn colSpan="2" style={{textAlign: 'center'}}>
-              {collection.collection_id} - {collection.disaster_type.name} in {collection.region.name}
+              {collection.collection_id} - {collection.collection_type.name} in {collection.region.name}
             </TableHeaderColumn>
           </TableRow>
         </TableHeader>

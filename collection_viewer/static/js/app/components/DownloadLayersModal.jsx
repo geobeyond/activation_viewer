@@ -148,7 +148,7 @@ class DownloadLayersModal extends React.Component {
             leftCheckbox={<Checkbox onCheck={this._onCheck.bind(this, 'collections', collection.collection_id)} />}
             key={collection.collection_id}
             primaryText={
-              <div className='layer-title-empty'>{collection.collection_id} - {collection.disaster_type.name} in {collection.region.name}</div>
+              <div className='layer-title-empty'>{collection.collection_id} - {collection.collection_type.name} in {collection.region.name}</div>
             }/>
         );
       });

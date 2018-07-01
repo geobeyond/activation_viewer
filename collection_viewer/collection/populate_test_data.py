@@ -1,6 +1,6 @@
 from geonode.layers.models import Layer
 
-from .models import Collectionn, MapProduct, DisasterType
+from .models import Collection, MapProduct, CollectionType
 
 def create_collection_data():
 
@@ -13,8 +13,8 @@ def create_collection_data():
             'bbox_y1': 30,
             'event_time': "2015-07-17T04:23:12",
             'glide_number': "glide1",
-            'disaster_type': 1, 
-        }, 
+            'collection_type': 1,
+        },
         {
             'collection_id': 'coll2',
             'bbox_x0': 40,
@@ -23,7 +23,7 @@ def create_collection_data():
             'bbox_y1': 40,
             'event_time': "2015-07-17T04:12:21",
             'glide_number': 'glide2',
-            'disaster_type': 1, 
+            'collection_type': 1,
         }
     ]
 
@@ -50,11 +50,13 @@ def create_collection_data():
         }
     ]
 
-    flood = DisasterType.objects.create(name='Flood', slug='flood')
-    eq = DisasterType.objects.create(name='Earthquake', slug='eq')
+    firstColl = CollectionType.objects.create(
+        name='FirstCollection', slug='firstcollection')
+    secondColl = CollectionType.objects.create(
+        name='SecondCollection', slug='secondcollection')
 
     for collection in collection_data:
-        Collection.objects.create(disaster_type=flood, **collection)
+        Collection.objects.create(collection_type=firstColl, **collection)
 
     for mp_data in map_product_data:
         collection = Collection.objects.get(id=mp_data['collection'])

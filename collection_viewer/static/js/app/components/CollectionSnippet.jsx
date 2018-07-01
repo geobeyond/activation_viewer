@@ -335,7 +335,7 @@ class CollSnippet extends Component {
         <div style={prepareStyles(styles.titleWrap)}>
           <div style={prepareStyles(styles.title)}>{this.props.collection.collection_id}</div>
           <div style={prepareStyles(styles.subtitle)}>
-          {this.props.collection.disaster_type.name} in {this.props.collection.region.name}
+          {this.props.collection.collection_type.name} in {this.props.collection.region.name}
           </div>
         </div>
         {actionIcon ? (<div style={prepareStyles(styles.actionIcon)}>{actionIcon}</div>) : null}

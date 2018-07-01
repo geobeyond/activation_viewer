@@ -337,7 +337,7 @@ class AddCollectionsModal extends React.Component {
             initiallyOpen={true}
             key={collection.collection_id}
             primaryText={
-              <div className='layer-title-empty'>{collection.collection_id} - {collection.disaster_type.name} in {collection.region.name}</div>
+              <div className='layer-title-empty'>{collection.collection_id} - {collection.collection_type.name} in {collection.region.name}</div>
             }/>
         );
       });

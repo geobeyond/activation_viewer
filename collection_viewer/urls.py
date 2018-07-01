@@ -3,10 +3,10 @@ from django.views.generic import TemplateView
 
 from geonode.urls import urlpatterns, api
 
-from collection_viewer.collection.api import CollectionResource, CollectionFullResource, DisasterTypeResource, MapSetResource, CollTagResource, CollLayerResource, CollMapResource
+from collection_viewer.collection.api import CollectionResource, CollectionFullResource, CollectionTypeResource, MapSetResource, CollTagResource, CollLayerResource, CollMapResource
 
 api.register(CollectionResource())
-api.register(DisasterTypeResource())
+api.register(CollectionTypeResource())
 api.register(MapSetResource())
 api.register(CollTagResource())
 api.register(CollLayerResource())

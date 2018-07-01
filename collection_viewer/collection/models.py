@@ -15,8 +15,8 @@ from geonode.base.models import Region
 MPLAYERTYPES = [['REF', 'Reference'], ['DEL', 'Delineation'], ['GRA', 'Grading']]
 
 
-class DisasterType(models.Model):
-    """Disaster types"""
+class CollectionType(models.Model):
+    """Collection types"""
     name = models.CharField(max_length=128)
     slug = models.SlugField()
 
@@ -82,7 +82,7 @@ class Collection(models.Model):
     bbox_y0 = models.DecimalField(max_digits=19, decimal_places=10, blank=True, null=True)
     bbox_y1 = models.DecimalField(max_digits=19, decimal_places=10, blank=True, null=True)
     glide_number = models.CharField(max_length=20, blank=True, null=True)
-    disaster_type = models.ForeignKey(DisasterType)
+    collection_type = models.ForeignKey(CollectionType)
     event_time = models.DateTimeField('Event Time', blank=True, null=True)
     collection_time = models.DateTimeField('Collection Time', blank=True, null=True)
     region = models.ForeignKey(Region, verbose_name='Affected Country', blank=True, null=True)
@@ -90,7 +90,7 @@ class Collection(models.Model):
     public = models.BooleanField()
 
     def __unicode__(self):
-        return '%s, %s' % (self.collection_id, self.disaster_type)
+        return '%s, %s' % (self.collection_id, self.collection_type)
 
     class Meta:
         # custom permissions,
@@ -122,10 +122,14 @@ class Collection(models.Model):
         """
 
         from guardian.models import UserObjectPermission, GroupObjectPermission
-        UserObjectPermission.objects.filter(content_type=ContentType.objects.get_for_model(self),
-                                        object_pk=self.collection_id).delete()
-        GroupObjectPermission.objects.filter(content_type=ContentType.objects.get_for_model(self),
-                                         object_pk=self.collection_id).delete()
+        UserObjectPermission.objects.filter(
+            content_type=ContentType.objects.get_for_model(self),
+            object_pk=self.collection_id
+        ).delete()
+        GroupObjectPermission.objects.filter(
+            content_type=ContentType.objects.get_for_model(self),
+            object_pk=self.collection_id
+        ).delete()
 
         if 'users' in perm_spec and "AnonymousUser" in perm_spec['users']:
             anonymous_group = Group.objects.get(name='anonymous')
@@ -182,7 +186,7 @@ class CollectionMaps(models.Model):
 
 
 class ExternalLayer(models.Model):
-    """External layers related to an collection"""
+    """External layers related to a collection"""
 
     title = models.CharField(max_length=128)
     layer_name = models.CharField(max_length=128)

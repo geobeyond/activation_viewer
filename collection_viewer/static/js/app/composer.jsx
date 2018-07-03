@@ -20,6 +20,7 @@ import ViewerAppBar from './components/ViewerAppBar.jsx';
 import CollInfoPanel from './components/ComposerCollInfoPanel.jsx'
 import AppDispatcher from 'boundless-sdk/dispatchers/AppDispatcher';
 import Snackbar from 'material-ui/Snackbar';
+import Drawer from 'material-ui/Drawer';
 
 
 // Needed for onTouchTap
@@ -137,6 +138,10 @@ class Composer extends React.Component {
     />)
   }
 
+  handleToggle = () => this.setState({open: !this.state.open});
+
+  handleClose = () => this.setState({open: false});
+
   render() {
     let save_msg;
     if (this.state.saveOpen){
@@ -155,23 +160,32 @@ class Composer extends React.Component {
     }
     return (
       <div id='content'>
-        <ViewerAppBar page={'composer'} />
+        <ViewerAppBar page={'composer'} toggleSidebar={this.handleToggle} />
         <div className='row container'>
-          <div className="col tabs" id="tabs-panel">
-            <CollectionsList
-              className={'overlays'}
-              filter={filterBaseLayersOut}
-              showOnStart={true}
-              addLayer={{sources: {list: '/api/collections/', full: '/api/collections-full/'}}}
-              showOpacity={true}
-              showDownload={true}
-              showGroupContent={true}
-              showZoomTo={true}
-              allowRemove={true}
-              allowReordering={true}
-              map={map}
-              showSave={this._showSaveMsg.bind(this)}
-              showError={this._showErrMsg.bind(this)}/>
+
+          <div className={'notop'}>
+            <div className="col tabs" id="tabs-panel">
+            <Drawer
+              docked={false}
+              width={450}
+              open={this.state.open}
+              onRequestChange={(open) => this.setState({open})}>
+              <CollectionsList
+                className={'overlays'}
+                filter={filterBaseLayersOut}
+                showOnStart={true}
+                addLayer={{sources: {list: '/api/collections/', full: '/api/collections-full/'}}}
+                showOpacity={true}
+                showDownload={true}
+                showGroupContent={true}
+                showZoomTo={true}
+                allowRemove={true}
+                allowReordering={true}
+                map={map}
+                showSave={this._showSaveMsg.bind(this)}
+                showError={this._showErrMsg.bind(this)}/>
+            </Drawer>
+            </div>
           </div>
           <div className="col maps">
             <MapPanel id='map' useHistory={false} map={map} />

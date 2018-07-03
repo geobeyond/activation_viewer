@@ -42,7 +42,7 @@ body{
 
 .maps {
   height: 100%;
-  width: calc(100% - 430px);
+  width: 100%; /*calc(100% - 430px);*/
   min-width: 300px;
 }
 
@@ -55,10 +55,11 @@ body{
 
 .tabs > div {
   height: 100%;
+  top: initial;
 }
 
 .tabs > div > div:last-child {
-  height: calc(100% - 46px);
+  height: calc(100% - 64px) !important;
 }
 
 .tabs > div > div:last-child > div{

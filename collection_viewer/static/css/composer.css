@@ -55,7 +55,7 @@ body{
 
 .tabs > div {
   height: 100%;
-  top: initial;
+  top: 64px;
 }
 
 .tabs > div > div:last-child {

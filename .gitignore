@@ -7,4 +7,6 @@ collection_viewer\.egg-info/
 development.db
 collection_viewer/static/js/app/build
 
-.vscode
+\.vscode/
+
+\.pytest_cache/

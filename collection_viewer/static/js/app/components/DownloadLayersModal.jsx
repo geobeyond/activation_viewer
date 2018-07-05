@@ -12,42 +12,22 @@ import FolderIcon from 'material-ui/svg-icons/file/folder-open';
 import Subheader from 'material-ui/Subheader';
 import CustomTheme from '../theme';
 
+const map_types = [
+  { name: 'Reference', key: 'REF'},
+  { name: 'Delineation', key: 'DEL'},
+  { name: 'Grading', key: 'GRA'}
+];
 
-const map_types = [{
-  name: 'Reference',
-  key: 'REF'},
-  {name: 'Delineation',
-  key: 'DEL'},
-  {name: 'Grading',
-  key: 'GRA'}];
-
-
-const layer_types = [{
-  name: 'Facilities',
-  key: 'facilities'
-},{
-  name: 'Hydrography',
-  key: 'hydrography'
-},{
-  name: 'Transportation',
-  key: 'transportation'
-},{
-  name: 'Physiography',
-  key: 'physiography'
-},{
-  name: 'Built up',
-  key: 'built_up'
-},{
-  name: 'Settlements',
-  key: 'settlements'
-},{
-  name: 'Utilities',
-  key: 'utilities'
-},{
-  name: 'General Information',
-  key: 'general_information'
-}];
-
+const layer_types = [
+  { name: 'Facilities', key: 'facilities'},
+  { name: 'Hydrography', key: 'hydrography'},
+  { name: 'Transportation', key: 'transportation'},
+  { name: 'Physiography', key: 'physiography'},
+  { name: 'Built up', key: 'built_up'},
+  { name: 'Settlements', key: 'settlements'},
+  { name: 'Utilities', key: 'utilities'},
+  { name: 'General Information', key: 'general_information'}
+];
 
 @pureRender
 class DownloadLayersModal extends React.Component {

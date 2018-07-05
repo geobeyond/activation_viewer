@@ -28,7 +28,8 @@ export default class ViewerAppBar extends React.Component{
       <AppBar className={'appBar'}
           title='Collection Viewer'
           onTitleTouchTap={() => window.location = '/'}
-          showMenuIconButton={false}
+          onLeftIconButtonTouchTap={this.props.toggleSidebar}
+          showMenuIconButton={true}
           children={appBarMenu} />
     );
   }

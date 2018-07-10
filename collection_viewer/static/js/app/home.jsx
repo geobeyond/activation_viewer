@@ -51,7 +51,6 @@ class App extends React.Component {
     return (
       <div id='content'>
         <ViewerAppBar />
-        <div id="ec-logo"></div>
         <div id="title">
           <p>The Collection Viewer is an application for fast visualization and distribution of grouped and nested layers.</p>
           <p>The platform was developed by Geobeyond with credits to Simone Dalmasso for the initial huge work</p>

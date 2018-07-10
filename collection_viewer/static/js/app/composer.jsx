@@ -35,6 +35,7 @@ var map = new ol.Map({
     new ol.layer.Tile({
       type: 'base',
       title: 'Streets dark',
+      visible: false,
       source: new ol.source.XYZ({
         url: 'https://cartodb-basemaps-{a-c}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}@2x.png',
         attributions: [
@@ -47,7 +48,6 @@ var map = new ol.Map({
     new ol.layer.Tile({
       type: 'base',
       title: 'Streets light',
-      visible: false,
       source: new ol.source.XYZ({
         url: 'https://cartodb-basemaps-{a-c}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png',
         attributions: [

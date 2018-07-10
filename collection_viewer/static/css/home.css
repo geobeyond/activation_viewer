@@ -22,7 +22,7 @@ body{
     padding: 24px;
 }
 
-#latest_activations{
+#latest_collections{
     margin-top: 10px;
     padding-top: 24px;
     padding: 14px;
@@ -34,22 +34,22 @@ body{
     border-radius: 2px;
 }
 
-.activationsSearch{
+.collectionsSearch{
     margin-top: -67px;
     background-color: rgba(255, 255, 255, 0.55) !important;
     height: 43px !important;
     border-radius: 3px 3px 0 0;
 }
 
-.activationsSearch label{
+.collectionsSearch label{
     top: 8px !important;
 }
 
-.activationsSearch input{
+.collectionsSearch input{
     margin-top: 0px !important;
 }
 
-.activationsSearch div:nth-child(4) hr:nth-child(2){
+.collectionsSearch div:nth-child(4) hr:nth-child(2){
     border-top: none rgb(250, 167, 63) !important;
     border-right: none rgb(250, 167, 63) !important;
     border-bottom: 2px solid rgb(250, 167, 63) !important;

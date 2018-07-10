@@ -26,7 +26,7 @@ urlpatterns = patterns(
     url(r'^collections/composer/?',
         TemplateView.as_view(template_name='map_composer.html'),
         name='composer'),
-    # url(r'^collection/maps/?',
+    # url(r'^collections/maps/?',
     #    TemplateView.as_view(template_name='maps.html'),
     #    name='maps'),
     url(r'^collections/', include('collection_viewer.collection.urls')),

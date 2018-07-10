@@ -14,7 +14,7 @@ export default class ViewerAppBar extends React.Component{
   }
   render() {
     const appBarMenu = (
-      <Tabs inkBarStyle={{'backgroundColor': 'rgba(255, 166, 77, 1)'}} className={'appBarMenu'} value={this.state.activeTab}
+      <Tabs inkBarStyle={{ 'backgroundColor': 'rgba(23, 52, 78, 1)'}} className={'appBarMenu'} value={this.state.activeTab}
           onChange={this.onChange}>
         <Tab label='Collections' value={'/'} className={'appBarTab'}>
         </Tab>

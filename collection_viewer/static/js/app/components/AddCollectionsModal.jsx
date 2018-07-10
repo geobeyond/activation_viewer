@@ -299,7 +299,7 @@ class AddCollectionsModal extends React.Component {
         action: {
           type: 'add-collection',
           collection: coll_data
-       }
+        }
       });
       let view = map.getView();
       view.fit(ol.proj.transformExtent(coll_extent, 'EPSG:4326', view.getProjection()), map.getSize());

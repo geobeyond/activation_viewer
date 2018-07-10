@@ -3,9 +3,9 @@ body{
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.appBar{
+/* .appBar{
     background-image: url('/static/img/app-bar-back-orange.png');
-}
+} */
 
 /* Dead Simple Grid (c) 2015 Vladimir Agafonkin */
 .row .row { margin:  0 -1.5em; }
@@ -79,12 +79,12 @@ body{
 }
 
 .sdk-button button{
-  background-color: #303030 !important;
-  fill: rgb(250, 167, 63) !important;
+  background-color: #FFFFFF !important;
+  fill: rgba(23, 52, 78, 1) !important;
 }
 
 .sdk-button button svg{
-  fill: rgb(250, 167, 63) !important;
+  fill: rgba(23, 52, 78, 1) !important;
 }
 
 html, body {
@@ -126,7 +126,7 @@ html, body {
   max-height: 100% !important;
   padding-right: 0px !important;
   height: 100%;
-  background-color: #303030;
+  background-color: #FFFFFF;
   border: 0 !important;
   border-right: 1px solid #BDBDBD !important;
 }
@@ -153,14 +153,14 @@ html, body {
 }
 
 .baselayers .layer-tree-panel {
-  background-color: #303030;
+  background-color: #FFFFFF;
 }
 
 .loading-panel circle{
-  stroke: rgb(250, 167, 63) !important;
+  stroke: rgba(23, 52, 78, 1) !important;
 }
 
-#actInfoPanel{
+#collInfoPanel{
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -190,7 +190,7 @@ html, body {
 }
 
 #infoPanelContent{
-  background-color: #303030;
+  background-color: #FFFFFF;
   border-top: 1px solid #BDBDBD;
   width: 100%;
   float: left;

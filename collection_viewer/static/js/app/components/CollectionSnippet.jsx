@@ -6,13 +6,13 @@ import AppConfig from '../constants/AppConfig.js';
 import ZoomInIcon from 'material-ui/svg-icons/action/zoom-in';
 
 var featureSelectedColors = {
-  fill: 'rgba(250, 167, 63, 0.6)',
-  stroke: 'rgba(250, 167, 63, 0.3)'
+    fill: 'rgba(23, 52, 78, 0.6)',
+    stroke: 'rgba(23, 52, 78, 0.3)'
 }
 
 var featureDeselectedColors = {
-  fill: 'rgba(250, 167, 63, 0.4)',
-  stroke: 'rgba(250, 167, 63, 0.1)'
+    fill: 'rgba(23, 52, 78, 0.4)',
+    stroke: 'rgba(23, 52, 78, 0.1)'
 }
 
 function getFeatureStyle(lable, selected){

@@ -12,9 +12,9 @@ export default {
     accent1Color: grey400,
     accent2Color: grey400,
     accent3Color: grey400,
-    textColor: '#faa73f',
-    secondaryTextColor: '#faa73f',
-    alternateTextColor: '#303030',
-    canvasColor: '#303030',
+    textColor : '#17344e',
+    secondaryTextColor : '#17344e',
+    alternateTextColor: '#FFFFFF',
+    canvasColor: '#FFFFFF',
   }
 };

@@ -16,7 +16,7 @@ export default class ViewerAppBar extends React.Component{
     const appBarMenu = (
       <Tabs inkBarStyle={{ 'backgroundColor': 'rgba(23, 52, 78, 1)'}} className={'appBarMenu'} value={this.state.activeTab}
           onChange={this.onChange}>
-        <Tab label='Collections' value={'/'} className={'appBarTab'}>
+        <Tab label='GeoNode' value={'/'} className={'appBarTab'}>
         </Tab>
         <Tab label='Map Composer' value={'composer'} className={'appBarTab'}>
         </Tab>
@@ -27,7 +27,7 @@ export default class ViewerAppBar extends React.Component{
     return (
       <AppBar className={'appBar'}
           title='Collection Viewer'
-          onTitleTouchTap={() => window.location = '/'}
+          onTitleTouchTap={() => window.location = '/collections/viewer'}
           onLeftIconButtonTouchTap={this.props.toggleSidebar}
           showMenuIconButton={true}
           children={appBarMenu} />

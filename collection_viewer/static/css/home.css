@@ -28,8 +28,8 @@ body{
     padding: 14px;
 }
 
-.act_snippet_selected{
-    box-shadow: 0 0 7px 5px rgba(255, 194, 102, 0.8);
+.coll_snippet_selected{
+    box-shadow: 0 0 5px 3px rgba(36, 83, 124, 1);
     transition: all 200ms ease-out;
     border-radius: 2px;
 }
@@ -50,9 +50,9 @@ body{
 }
 
 .collectionsSearch div:nth-child(4) hr:nth-child(2){
-    border-top: none rgb(250, 167, 63) !important;
-    border-right: none rgb(250, 167, 63) !important;
-    border-bottom: 2px solid rgb(250, 167, 63) !important;
+    border-top: none rgb(0, 0, 0) !important;
+    border-right: none rgb(0, 0, 0) !important;
+    border-bottom: 2px solid rgb(0, 0, 0) !important;
 }
 
 .snippetTitle{

@@ -6,12 +6,12 @@ import AppConfig from '../constants/AppConfig.js';
 import ZoomInIcon from 'material-ui/svg-icons/action/zoom-in';
 
 var featureSelectedColors = {
-    fill: 'rgba(23, 52, 78, 0.6)',
+    fill: 'rgba(23, 52, 78, 0.5)',
     stroke: 'rgba(23, 52, 78, 0.3)'
 }
 
 var featureDeselectedColors = {
-    fill: 'rgba(23, 52, 78, 0.4)',
+    fill: 'rgba(23, 52, 78, 0.3)',
     stroke: 'rgba(23, 52, 78, 0.1)'
 }
 

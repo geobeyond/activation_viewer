@@ -20,16 +20,16 @@ urlpatterns = patterns(
     #     r'^/?$',
     #     TemplateView.as_view(template_name='site_base.html'), name='home'
     # ),
-    url(r'^collections/viewer/?$',
+    url(r'^geocollections/viewer/?$',
         TemplateView.as_view(template_name='viewer_index.html'),
         name='viewer'),
-    url(r'^collections/composer/?',
+    url(r'^geocollections/composer/?',
         TemplateView.as_view(template_name='map_composer.html'),
         name='composer'),
-    # url(r'^collections/maps/?',
-    #    TemplateView.as_view(template_name='maps.html'),
-    #    name='maps'),
-    url(r'^collections/', include('collection_viewer.collection.urls')),
+    url(r'^geocollections/maps/?',
+        TemplateView.as_view(template_name='maps.html'),
+        name='maps'),
+    url(r'^geocollections/', include('collection_viewer.collection.urls')),
     url(r'', include(api.urls)),
 ) + urlpatterns
 

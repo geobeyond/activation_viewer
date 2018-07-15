@@ -118,7 +118,7 @@ def downloadLayers(request):
                     '%s.zip' % zip_name)
 
             resp = HttpResponse(s.getvalue(), content_type = "application/x-zip-compressed")
-            resp['Content-Disposition'] = 'attachment; filename=%s' % 'EMS_collections_layers.zip'
+            resp['Content-Disposition'] = 'attachment; filename=%s' % 'collections_layers.zip'
             return resp
 
         else:

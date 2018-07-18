@@ -269,7 +269,7 @@ class CollectionsList extends React.Component {
       // Loop over layers
       mapset.get('layers').forEach((layer, index) => {
        // Push layer config in collection
-       collection.layers[layer.get('djmpId')] = {
+       collection.layers[layer.get('layerId')] = {
         opacity: layer.getOpacity(),
         index: index
        }

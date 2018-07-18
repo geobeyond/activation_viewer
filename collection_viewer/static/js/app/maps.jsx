@@ -23,6 +23,8 @@ class App extends React.Component {
     return (
       <div id='content'>
         <ViewerAppBar page={'maps'} />
+        <MapPanel id='map' map={map} useHistory={false} />
+        <LatestCollections map={map} />
       </div>
     );
   }

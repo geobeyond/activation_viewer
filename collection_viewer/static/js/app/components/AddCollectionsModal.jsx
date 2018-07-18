@@ -247,7 +247,7 @@ class AddCollectionsModal extends React.Component {
             // add some parameter that will be used in the layer list
             the_layer.set('storeType', layer.storeType);
             the_layer.set('typename', layer.typename);
-            the_layer.set('djmpId', layer.djmp_id);
+            the_layer.set('layerId', layer.id);
           }
 
           // Set layer initial config if available

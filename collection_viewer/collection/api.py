@@ -231,8 +231,9 @@ class CollectionFullResource(ModelResource):
             ',')  # TODO: Why is this different when done through haystack?
         bbox = map(str, bbox)  # 2.6 compat - float to decimal conversion
 
-        intersects = ~(Q(bbox_x0__gt=bbox[2]) | Q(bbox_x1__lt=bbox[0]) |
-                       Q(bbox_y0__gt=bbox[3]) | Q(bbox_y1__lt=bbox[1]))
+        intersects = ~(
+            Q(bbox_x0__gt=bbox[2]) | Q(bbox_x1__lt=bbox[0]) |
+            Q(bbox_y0__gt=bbox[3]) | Q(bbox_y1__lt=bbox[1]))
 
         return queryset.filter(intersects)
 
@@ -361,14 +362,14 @@ class CollMapResource(ModelResource):
         always_return_data = True
 
     def throttle_check(self, request):
-       """Override throttle check to throttle differently on GET and POST.
-       """
-       identifier = self._meta.authentication.get_identifier(request)
+        """Override throttle check to throttle differently on GET and POST.
+        """
+        identifier = self._meta.authentication.get_identifier(request)
 
-       if request.method == 'POST':
-           if self._meta.post_throttle.should_be_throttled(identifier):
-               raise ImmediateHttpResponse(
-                   response=HttpTooManyRequests())
+        if request.method == 'POST':
+            if self._meta.post_throttle.should_be_throttled(identifier):
+                raise ImmediateHttpResponse(
+                    response=HttpTooManyRequests())
 
-       else:
-           return super(CollMapResource, self).throttle_check(request)
+        else:
+            return super(CollMapResource, self).throttle_check(request)

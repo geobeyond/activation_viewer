@@ -241,45 +241,45 @@ class CollectionsList extends React.Component {
     return xmlhttp;
   }
   _getMapState() {
-   /* Serialize the state of the map
-   * center: the center of the map's view
-   * zoom: current zoom of the map's view
-   * collections: array of the collections on the map containning information
-   *  of their layers. Only the layers are counted and not the mapsets as they
-   *  will be loaded anyway and have no parameters
-   */
-   let map = this.props.map;
+    /* Serialize the state of the map
+    * center: the center of the map's view
+    * zoom: current zoom of the map's view
+    * collections: array of the collections on the map containning information
+    *  of their layers. Only the layers are counted and not the mapsets as they
+    *  will be loaded anyway and have no parameters
+    */
+    let map = this.props.map;
 
-   let map_state = {
-     center: map.getView().getCenter(),
-     zoom: map.getView().getZoom(),
-     collections: []
-   };
+    let map_state = {
+      center: map.getView().getCenter(),
+      zoom: map.getView().getZoom(),
+      collections: []
+    };
 
-   let collections = LayerStore.getState().layers;
-   // Loop over collections (instance of Grops) to get config
-   collections.forEach(coll_data => {
-    if (coll_data instanceof ol.layer.Group){
-     let collection = {
-      id: coll_data.get('coll_id'),
-      layers: {}
-     }
-     // Loop over mapsets, we only need layers config
-     coll_data.get('layers').forEach(mapset => {
-      // Loop over layers
-      mapset.get('layers').forEach((layer, index) => {
-       // Push layer config in collection
-       collection.layers[layer.get('layerId')] = {
-        opacity: layer.getOpacity(),
-        index: index
-       }
-      });
-     });
-     // Push collection config in map_state
-     map_state.collections.push(collection);
-    }
-   });
-   return map_state;
+    let collections = LayerStore.getState().layers;
+    // Loop over collections (instance of Grops) to get config
+    collections.forEach(coll_data => {
+      if (coll_data instanceof ol.layer.Group){
+        let collection = {
+          id: coll_data.get('coll_id'),
+          layers: {}
+        }
+        // Loop over mapsets, we only need layers config
+        coll_data.get('layers').forEach(mapset => {
+          // Loop over layers
+          mapset.get('layers').forEach((layer, index) => {
+            // Push layer config in collection
+            collection.layers[layer.get('layerId')] = {
+              opacity: layer.getOpacity(),
+              index: index
+            }
+          });
+        });
+        // Push collection config in map_state
+        map_state.collections.push(collection);
+      }
+    });
+    return map_state;
   }
   _saveMap(copy) {
     let self = this;
@@ -297,29 +297,29 @@ class CollectionsList extends React.Component {
       }
     };
     this._doPOST(url,
-     JSON.stringify({config: JSON.stringify(map_state)}),
-     function(xmlhttp){
-      if (!is_put){
-       // update the url with the newly created id
-       global.history.replaceState({}, '',
-        '/' + global.location.pathname.split('/')[1] + '/' + JSON.parse(xmlhttp.response).id);
-       self._setSaved();
-      }
-      self.props.showSave();
-     },
-     function(xmlhttp){
-       self.props.showError();
-     },
-     this,
-     csrf,
-    'application/json',
-     is_put
-   )
+      JSON.stringify({config: JSON.stringify(map_state)}),
+      function(xmlhttp){
+        if (!is_put){
+          // update the url with the newly created id
+          global.history.replaceState({}, '',
+          '/' + global.location.pathname.split('/')[1] + '/' + JSON.parse(xmlhttp.response).id);
+          self._setSaved();
+        }
+        self.props.showSave();
+      },
+      function(xmlhttp){
+        self.props.showError();
+      },
+      this,
+      csrf,
+      'application/json',
+      is_put
+    )
   }
   _setSaved(){
-   this.setState({
-    saved: true
-   })
+    this.setState({
+      saved: true
+    })
   }
   _showDownload(data){
     this.refs.downloadlayersmodal.getWrappedInstance().open();

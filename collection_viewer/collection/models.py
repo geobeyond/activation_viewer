@@ -169,16 +169,24 @@ class Collection(models.Model):
             if not x0:
                 x0, x1, y0, y1 = mapset.bbox_x0, mapset.bbox_x1, mapset.bbox_y0, mapset.bbox_y1
             else:
-                if mapset.bbox_x0 < x0: x0 = mapset.bbox_x0
-                if mapset.bbox_x1 > x1: x1 = mapset.bbox_x1
-                if mapset.bbox_y0 < y0: y0 = mapset.bbox_y0
-                if mapset.bbox_y1 > y1: y1 = mapset.bbox_y1
+                if mapset.bbox_x0 < x0:
+                    x0 = mapset.bbox_x0
+                if mapset.bbox_x1 > x1:
+                    x1 = mapset.bbox_x1
+                if mapset.bbox_y0 < y0:
+                    y0 = mapset.bbox_y0
+                if mapset.bbox_y1 > y1:
+                    y1 = mapset.bbox_y1
 
-        Collection.objects.filter(collection_id=self.collection_id).update(bbox_x0=x0, bbox_x1=x1, bbox_y0=y0, bbox_y1=y1)
-
+        Collection.objects.filter(
+            collection_id=self.collection_id
+        ).update(bbox_x0=x0, bbox_x1=x1, bbox_y0=y0, bbox_y1=y1)
 
 class CollectionMaps(models.Model):
-    """Store information about saved maps such as layers order, opacity and collections"""
+    """
+        Store information about saved maps such as layers
+        order, opacity and collections
+    """
     config = models.CharField(max_length=6000, null=True)
 
     class Meta:
@@ -204,4 +212,7 @@ def mapset_layers_changed(instance, *args, **kwargs):
     instance.set_bbox_from_layers()
     instance.collection.set_bbox_from_mapsets()
 
-signals.m2m_changed.connect(mapset_layers_changed, sender=MapSet.layers.through)
+
+signals.m2m_changed.connect(
+    mapset_layers_changed, sender=MapSet.layers.through
+)

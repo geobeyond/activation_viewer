@@ -7,12 +7,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from taggit.managers import TaggableManager
 from guardian.shortcuts import assign_perm, get_groups_with_perms, get_users_with_perms
-
+from collection_viewer import settings
 from geonode.layers.models import Layer
 from geonode.base.models import Region
 
+LAYERTYPES = settings.LAYERTYPES
 
-MPLAYERTYPES = [['REF', 'Reference'], ['DEL', 'Delineation'], ['GRA', 'Grading']]
 
 
 class CollectionType(models.Model):
@@ -27,7 +27,10 @@ class CollectionType(models.Model):
 class MapSetLayer(models.Model):
     """Link a mapset with a GeoNode layer adding metadata"""
     layer = models.OneToOneField(Layer)
-    map_type = models.CharField(max_length=30, blank=True, null=True, choices=MPLAYERTYPES)
+    map_type = models.CharField(
+        max_length=30, blank=True,
+        null=True, choices=LAYERTYPES
+    )
     title = models.CharField(max_length=256)
     version = models.CharField(max_length=5, blank=True, null=True)
     zip_name = models.CharField(max_length=256, blank=True, null=True)

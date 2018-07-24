@@ -113,6 +113,8 @@ ALLOWED_HOSTS = ['*']
 
 SITEURL = "http://localhost:8000/"
 
+LAYERTYPES = [['REF', 'Reference'], ['DEL', 'Delineation'], ['GRA', 'Grading']]
+
 #USE_DISK_CACHE = True
 
 #TILESET_CACHE_URL = ''
@@ -125,7 +127,7 @@ CELERY_DISABLE_RATE_LIMITS = False
 CELERY_ALWAYS_EAGER = False
 
 CELERY_QUEUES = [
-     Queue('loader', routing_key='loader')
+        Queue('loader', routing_key='loader')
 ]
 
 AW_COPERNICUS_FTP = {

@@ -11,13 +11,16 @@
 {% if user.is_authenticated %}
 <ul class="dropdown-menu">
     <li>
+        <a href="{% url "composer" %}">{% trans "Composer" %}</a>
+    </li>
+    <li>
         <a href="{% url "viewer" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore Collections" %}</a>
     </li>
 </ul>
 {% else %}
 <ul class="dropdown-menu">
     <li>
-        <a href="{% url "viewer" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Collections" %}</a>
+        <a href="{% url "viewer" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore Collections" %}</a>
     </li>
 </ul>
 </li>

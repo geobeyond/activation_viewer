@@ -196,8 +196,8 @@ class Collection(models.Model):
         thumbnail_name = "collection-{0}-thumb.png".format(
             self.collection_id
         )
-        upload_to = 'thumbs/'
-        upload_path = os.path.join(upload_to, thumbnail_name)
+        thumbnail_dir = os.path.join('thumbs', thumbnail_name)
+        upload_path = os.path.join(settings.MEDIA_ROOT, thumbnail_dir)
         thumb = None
         coll_layers = OrderedDict()
         ms_layers = [
@@ -232,14 +232,13 @@ class Collection(models.Model):
             thumb = requests.get(thumbnail_create_url, stream=True)
             thumb.raw.decode_content = True
             thumb_result = Image.open(thumb.raw)
-            thumb_result.save(thumbnail_name)
 
-            if storage.exists(upload_path):
-                # Delete if exists otherwise the (FileSystemStorage)
-                # implementation will create a new file with a unique name
-                storage.delete(os.path.join(upload_path))
+            # if storage.exists(upload_path):
+            #     # Delete if exists otherwise the (FileSystemStorage)
+            #     # implementation will create a new file with a unique name
+            #     storage.delete(os.path.join(upload_path))
 
-            storage.save(upload_path, ContentFile(thumb_result))
+            thumb_result.save(upload_path)
         except Exception:
             logger.error(
                 'Error when generating the thumbnail for resource %s.' %
@@ -249,7 +248,7 @@ class Collection(models.Model):
         Collection.objects.filter(
             collection_id=self.collection_id
         ).update(thumbnail_url=urljoin(
-            settings.SITEURL, os.path.join('uploaded', upload_path)
+            settings.SITEURL, os.path.join(settings.MEDIA_URL, thumbnail_dir)
         ))
 
 

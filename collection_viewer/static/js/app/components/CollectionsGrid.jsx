@@ -81,7 +81,7 @@ export default class LatestCollections extends React.Component {
     let selectInteraction = null;
     this.props.map.getInteractions().forEach(interaction => {
       if (interaction instanceof ol.interaction.Select){
-        selectInteraction =  interaction; 
+        selectInteraction =  interaction;
       }
     });
 

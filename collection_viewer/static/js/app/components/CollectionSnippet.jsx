@@ -48,7 +48,7 @@ function getStyles(props, context) {
       position: 'relative',
       display: 'block',
       height: '200px',
-      width: '324px',
+      width: '300px',
       overflow: 'hidden',
     },
     titleBar: {

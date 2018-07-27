@@ -242,9 +242,9 @@ class AddCollectionsModal extends React.Component {
               isRemovable: true,
               extent: ol.proj.transformExtent(
                 [
-                parseFloat(layer.bbox_x0),
-                parseFloat(layer.bbox_y0),
-                parseFloat(layer.bbox_x1),
+                  parseFloat(layer.bbox_x0),
+                  parseFloat(layer.bbox_y0),
+                  parseFloat(layer.bbox_x1),
                   parseFloat(layer.bbox_y1)
                 ],
                 'EPSG:4326',
@@ -404,12 +404,12 @@ class AddCollectionsModal extends React.Component {
     if (this.state.error === true) {
       error = (
         <Snackbar
-        autoHideDuration={5000}
+          autoHideDuration={5000}
           style={{ transitionProperty: 'none' }}
           bodyStyle={{ lineHeight: '24px', height: 'auto' }}
-        open={this.state.errorOpen}
+          open={this.state.errorOpen}
           message={formatMessage(messages.errormsg, { msg: this.state.msg })}
-        onRequestClose={this._handleRequestClose.bind(this)}
+          onRequestClose={this._handleRequestClose.bind(this)}
         />
       );
     }

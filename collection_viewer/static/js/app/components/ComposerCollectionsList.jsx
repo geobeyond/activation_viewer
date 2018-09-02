@@ -289,7 +289,7 @@ class CollectionsList extends React.Component {
     // If the map is already saved, do a PUT request
     let is_put = copy ? false : this.state.saved;
 
-    let url = is_put ? '/api/coll-maps/' + global.location.pathname.split('/')[2] : '/api/coll-maps/';
+    let url = is_put ? '/api/coll-maps/' + global.location.pathname.split('/')[3] : '/api/coll-maps/';
     let csrf;
     for (let cookie in document.cookie.split(';')) {
       if (cookie.indexOf('csrftoken') !== -1){

@@ -163,8 +163,8 @@ class AddCollectionsModal extends React.Component {
 
   componentDidMount() {
     let pathname = global.location.pathname.split('/');
-    if (pathname.length > 2 && parseInt(pathname[2])){
-      this._initFromSaved(parseInt(pathname[2]));
+    if (pathname.length > 3 && parseInt(pathname[3])){
+      this._initFromSaved(parseInt(pathname[3]));
       this.props.setSaved();
     } else if (global.location.hash !== '') {
       this._initFromHash();

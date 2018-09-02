@@ -87,6 +87,10 @@ body{
   fill: rgba(23, 52, 78, 1) !important;
 }
 
+div#tabs-panel.col.tabs > div > div {
+  background-color: rgba(0, 0, 0, 0.0) !important;
+}
+
 html, body {
   height: 100%;
   padding: 0;

@@ -30,7 +30,9 @@ class DtypeSerializer(CountJSONSerializer):
             'collection.view_collection'
         )
 
-        counts = list(resources.values(options['count_type']).annotate(count=Count(options['count_type'])))
+        counts = list(resources.values(
+            options['count_type']
+        ).annotate(count=Count(options['count_type'])))
 
         return dict([(c[options['count_type']], c['count']) for c in counts])
 
@@ -194,12 +196,16 @@ class MapSetResource(ModelResource):
 class CollectionFullResource(ModelResource):
     """Collection api"""
     map_sets = fields.ToManyField(MapSetResource, 'mapset_set', full=True)
-    collection_type = fields.ToOneField(CollectionTypeResource, 'collection_type', full=True)
+    collection_type = fields.ToOneField(
+        CollectionTypeResource, 'collection_type', full=True
+    )
     region = fields.ToOneField(RegionResource, 'region', full=True, null=True)
     keywords = fields.ToManyField(TagResource, 'keywords', null=True)
 
     def build_filters(self, filters={}):
-        orm_filters = super(CollectionFullResource, self).build_filters(filters)
+        orm_filters = super(
+            CollectionFullResource, self
+        ).build_filters(filters)
         if 'extent' in filters:
             orm_filters.update({'extent': filters['extent']})
 
@@ -249,7 +255,9 @@ class CollectionFullResource(ModelResource):
 
 class CollectionResource(ModelResource):
     region = fields.ToOneField(RegionResource, 'region', full=True, null=True)
-    collection_type = fields.ToOneField(CollectionTypeResource, 'collection_type', full=True)
+    collection_type = fields.ToOneField(
+        CollectionTypeResource, 'collection_type', full=True
+    )
 
     class Meta:
         queryset = Collection.objects.distinct().order_by('-collection_time')

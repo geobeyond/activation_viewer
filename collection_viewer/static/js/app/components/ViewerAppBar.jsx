@@ -14,20 +14,22 @@ export default class ViewerAppBar extends React.Component{
   }
   render() {
     const appBarMenu = (
-      <Tabs inkBarStyle={{'backgroundColor': 'rgba(255, 166, 77, 1)'}} className={'appBarMenu'} value={this.state.activeTab}
+      <Tabs inkBarStyle={{ 'backgroundColor': 'rgba(23, 52, 78, 1)'}} className={'appBarMenu'} value={this.state.activeTab}
           onChange={this.onChange}>
-        <Tab label='Collections' value={'/'} className={'appBarTab'}>
+        <Tab label='Collections' value={'viewer'} className={'appBarTab'} href='/geocollections/viewer'>
         </Tab>
-        <Tab label='Map Composer' value={'composer'} className={'appBarTab'}>
+        <Tab label='Map Composer' value={'composer'} className={'appBarTab'} href='/geocollections/composer'>
         </Tab>
-        {/* <Tab label='Maps' value={'maps'} className={'appBarTab'} href='/maps'>
-         </Tab>*/}
+        <Tab label='Maps' value={'maps'} className={'appBarTab'} href='/geocollections/maps'>
+        </Tab>
+        <Tab label='GeoNode' value={'/'} className={'appBarTab'} href='/'>
+        </Tab>
       </Tabs>
     );
     return (
       <AppBar className={'appBar'}
           title='Collection Viewer'
-          onTitleTouchTap={() => window.location = '/'}
+          onTitleTouchTap={() => window.location = '/geocollections/viewer'}
           onLeftIconButtonTouchTap={this.props.toggleSidebar}
           showMenuIconButton={true}
           children={appBarMenu} />

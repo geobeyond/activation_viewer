@@ -14,18 +14,23 @@ api.register(CollectionFullResource())
 api.register(CollMapResource())
 
 
-urlpatterns = patterns('',
-    url(r'^/?$',
-       TemplateView.as_view(template_name='viewer_index.html'),
-       name='home'),
-    url(r'^composer/?',
-       TemplateView.as_view(template_name='map_composer.html'),
-       name='composer'),
-   # url(r'^maps/?',
-   #    TemplateView.as_view(template_name='maps.html'),
-   #    name='maps'),
-    url(r'^collections/', include('collection_viewer.collection.urls')),
+urlpatterns = patterns(
+    '',
+    # url(
+    #     r'^/?$',
+    #     TemplateView.as_view(template_name='site_base.html'), name='home'
+    # ),
+    url(r'^geocollections/viewer/?$',
+        TemplateView.as_view(template_name='viewer_index.html'),
+        name='viewer'),
+    url(r'^geocollections/composer/?',
+        TemplateView.as_view(template_name='map_composer.html'),
+        name='composer'),
+    url(r'^geocollections/maps/?',
+        TemplateView.as_view(template_name='maps.html'),
+        name='maps'),
+    url(r'^geocollections/', include('collection_viewer.collection.urls')),
     url(r'', include(api.urls)),
- ) + urlpatterns
+) + urlpatterns
 
 handler403 = 'geonode.views.err403'

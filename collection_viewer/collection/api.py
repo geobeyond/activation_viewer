@@ -30,7 +30,9 @@ class DtypeSerializer(CountJSONSerializer):
             'collection.view_collection'
         )
 
-        counts = list(resources.values(options['count_type']).annotate(count=Count(options['count_type'])))
+        counts = list(resources.values(
+            options['count_type']
+        ).annotate(count=Count(options['count_type'])))
 
         return dict([(c[options['count_type']], c['count']) for c in counts])
 
@@ -194,12 +196,16 @@ class MapSetResource(ModelResource):
 class CollectionFullResource(ModelResource):
     """Collection api"""
     map_sets = fields.ToManyField(MapSetResource, 'mapset_set', full=True)
-    collection_type = fields.ToOneField(CollectionTypeResource, 'collection_type', full=True)
+    collection_type = fields.ToOneField(
+        CollectionTypeResource, 'collection_type', full=True
+    )
     region = fields.ToOneField(RegionResource, 'region', full=True, null=True)
     keywords = fields.ToManyField(TagResource, 'keywords', null=True)
 
     def build_filters(self, filters={}):
-        orm_filters = super(CollectionFullResource, self).build_filters(filters)
+        orm_filters = super(
+            CollectionFullResource, self
+        ).build_filters(filters)
         if 'extent' in filters:
             orm_filters.update({'extent': filters['extent']})
 
@@ -231,8 +237,9 @@ class CollectionFullResource(ModelResource):
             ',')  # TODO: Why is this different when done through haystack?
         bbox = map(str, bbox)  # 2.6 compat - float to decimal conversion
 
-        intersects = ~(Q(bbox_x0__gt=bbox[2]) | Q(bbox_x1__lt=bbox[0]) |
-                       Q(bbox_y0__gt=bbox[3]) | Q(bbox_y1__lt=bbox[1]))
+        intersects = ~(
+            Q(bbox_x0__gt=bbox[2]) | Q(bbox_x1__lt=bbox[0]) |
+            Q(bbox_y0__gt=bbox[3]) | Q(bbox_y1__lt=bbox[1]))
 
         return queryset.filter(intersects)
 
@@ -248,7 +255,9 @@ class CollectionFullResource(ModelResource):
 
 class CollectionResource(ModelResource):
     region = fields.ToOneField(RegionResource, 'region', full=True, null=True)
-    collection_type = fields.ToOneField(CollectionTypeResource, 'collection_type', full=True)
+    collection_type = fields.ToOneField(
+        CollectionTypeResource, 'collection_type', full=True
+    )
 
     class Meta:
         queryset = Collection.objects.distinct().order_by('-collection_time')
@@ -361,14 +370,14 @@ class CollMapResource(ModelResource):
         always_return_data = True
 
     def throttle_check(self, request):
-       """Override throttle check to throttle differently on GET and POST.
-       """
-       identifier = self._meta.authentication.get_identifier(request)
+        """Override throttle check to throttle differently on GET and POST.
+        """
+        identifier = self._meta.authentication.get_identifier(request)
 
-       if request.method == 'POST':
-           if self._meta.post_throttle.should_be_throttled(identifier):
-               raise ImmediateHttpResponse(
-                   response=HttpTooManyRequests())
+        if request.method == 'POST':
+            if self._meta.post_throttle.should_be_throttled(identifier):
+                raise ImmediateHttpResponse(
+                    response=HttpTooManyRequests())
 
-       else:
-           return super(CollMapResource, self).throttle_check(request)
+        else:
+            return super(CollMapResource, self).throttle_check(request)

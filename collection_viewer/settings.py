@@ -63,7 +63,7 @@ STATICFILES_DIRS.append(
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(PROJECT_ROOT, "templates"), os.path.join(LOCAL_ROOT, "templates")],
+        'DIRS': [os.path.join(LOCAL_ROOT, "templates"), os.path.join(PROJECT_ROOT, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,6 +94,7 @@ LOCALE_PATHS = (
     ) + LOCALE_PATHS
 
 INSTALLED_APPS = INSTALLED_APPS + (
+    'collection_viewer',
     'collection_viewer.collection',
     #'geonode.contrib.mp',
     #'djmp',
@@ -112,6 +113,8 @@ ALLOWED_HOSTS = ['*']
 
 SITEURL = "http://localhost:8000/"
 
+LAYERTYPES = [['REF', 'Reference'], ['DEL', 'Delineation'], ['GRA', 'Grading']]
+
 #USE_DISK_CACHE = True
 
 #TILESET_CACHE_URL = ''
@@ -124,7 +127,7 @@ CELERY_DISABLE_RATE_LIMITS = False
 CELERY_ALWAYS_EAGER = False
 
 CELERY_QUEUES = [
-     Queue('loader', routing_key='loader')
+        Queue('loader', routing_key='loader')
 ]
 
 AW_COPERNICUS_FTP = {

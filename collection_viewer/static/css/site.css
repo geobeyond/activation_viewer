@@ -1,27 +1,27 @@
 body{
-  background-color: rgba(115, 115, 115, 0.5);
+  background-color: rgb(255, 255, 255);
 }
 
 .appBar{
-    background-color: rgba(250, 167, 63, 0.5) !important;
+    background-color: rgba(45, 104, 156, 1) !important;
 }
 
 .appBar h1{
   cursor: pointer;
   max-width: 500px;
-  color:  rgb(189, 189, 189) !important;
+  color:  rgba(23, 52, 78, 1) !important;
 }
 
-.appBarMenu{
+.appBarMenu {
   padding-top: 10px;
 }
 
 .appBarMenu > div{
-  background-color: rgba(0, 151, 167, 0) !important;
+  background-color: rgba(45, 104, 156, 1) !important;
 
 }
 
 .appBarTab{
   min-width: 200px;
-  color:  rgb(189, 189, 189) !important;
+  color:  rgba(23, 52, 78, 1) !important;
 }

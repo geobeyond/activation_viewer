@@ -6,13 +6,13 @@ import AppConfig from '../constants/AppConfig.js';
 import ZoomInIcon from 'material-ui/svg-icons/action/zoom-in';
 
 var featureSelectedColors = {
-  fill: 'rgba(250, 167, 63, 0.6)',
-  stroke: 'rgba(250, 167, 63, 0.3)'
+    fill: 'rgba(23, 52, 78, 0.5)',
+    stroke: 'rgba(23, 52, 78, 0.3)'
 }
 
 var featureDeselectedColors = {
-  fill: 'rgba(250, 167, 63, 0.4)',
-  stroke: 'rgba(250, 167, 63, 0.1)'
+    fill: 'rgba(23, 52, 78, 0.3)',
+    stroke: 'rgba(23, 52, 78, 0.1)'
 }
 
 function getFeatureStyle(lable, selected){
@@ -48,7 +48,7 @@ function getStyles(props, context) {
       position: 'relative',
       display: 'block',
       height: '200px',
-      width: '324px',
+      width: '300px',
       overflow: 'hidden',
     },
     titleBar: {
@@ -221,7 +221,7 @@ class CollSnippet extends Component {
   }
 
   onSnippetclick(){
-    window.location=AppConfig.COMPOSER_URL + '#' + this.props.collection.collection_id;
+    window.location=AppConfig.COMPOSER_URL + '/' + this.props.collection.collection_id;
   }
 
   _selectComponent(){
@@ -331,7 +331,7 @@ class CollSnippet extends Component {
 
 
     let titleBar = (
-      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function(){window.location=AppConfig.COMPOSER_URL + '#' + collection.collection_id}}>
+      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function(){window.location=AppConfig.COMPOSER_URL + '/' + collection.collection_id}}>
         <div style={prepareStyles(styles.titleWrap)}>
           <div style={prepareStyles(styles.title)}>{this.props.collection.collection_id}</div>
           <div style={prepareStyles(styles.subtitle)}>

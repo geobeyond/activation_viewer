@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block extra_head %}
+    <link href="{{ STATIC_URL }}css/site_base.css" rel="stylesheet" />
+{% endblock %}
+{% block extra_tab %}
+<li "nav_collections">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Collections" %}
+    <i class="fa fa-angle-down fa-lg"></i>
+</a>
+{% if user.is_authenticated %}
+<ul class="dropdown-menu">
+    <li>
+        <a href="{% url "composer" %}">{% trans "Composer" %}</a>
+    </li>
+    <li>
+        <a href="{% url "viewer" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore Collections" %}</a>
+    </li>
+</ul>
+{% else %}
+<ul class="dropdown-menu">
+    <li>
+        <a href="{% url "viewer" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore Collections" %}</a>
+    </li>
+</ul>
+</li>
+{% endif %}
+{% endblock %}

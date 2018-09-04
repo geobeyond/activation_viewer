@@ -18,7 +18,7 @@ var map = new ol.Map({
       type: 'base',
       title: 'base',
       source: new ol.source.XYZ({
-        url: 'https://cartodb-basemaps-{a-c}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}@2x.png',
+        url: 'https://cartodb-basemaps-{a-c}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png',
         attributions: [
           new ol.Attribution({
             html: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
@@ -51,7 +51,6 @@ class App extends React.Component {
     return (
       <div id='content'>
         <ViewerAppBar />
-        <div id="ec-logo"></div>
         <div id="title">
           <p>The Collection Viewer is an application for fast visualization and distribution of grouped and nested layers.</p>
           <p>The platform was developed by Geobeyond with credits to Simone Dalmasso for the initial huge work</p>

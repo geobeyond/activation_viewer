@@ -2,7 +2,7 @@ import React from 'react';
 import ol from 'openlayers';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 import pureRender from 'pure-render-decorator';
@@ -10,7 +10,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import FolderIcon from 'material-ui/svg-icons/file/folder-open';
 import LayerIcon from 'material-ui/svg-icons/maps/layers';
@@ -21,7 +21,6 @@ import classNames from 'classnames';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import 'boundless-sdk/components/AddLayerModal.css';
 import CustomTheme from '../theme';
-
 
 const messages = defineMessages({
   servertypelabel: {
@@ -76,8 +75,10 @@ const messages = defineMessages({
   },
   corserror: {
     id: 'addwmslayermodal.corserror',
-    description: 'Error message to show the user when an XHR request fails because of CORS or offline',
-    defaultMessage: 'Could not connect to GeoServer. Please verify that the server is online and CORS is enabled.'
+    description:
+      'Error message to show the user when an XHR request fails because of CORS or offline',
+    defaultMessage:
+      'Could not connect to GeoServer. Please verify that the server is online and CORS is enabled.'
   },
   inputfieldlabel: {
     id: 'addwmslayermodal.inputfieldlabel',
@@ -117,7 +118,7 @@ class AddCollectionsModal extends React.Component {
     };
   }
   getChildContext() {
-    return {muiTheme: getMuiTheme(CustomTheme)};
+    return { muiTheme: getMuiTheme(CustomTheme) };
   }
 
   componentWillUnmount() {
@@ -126,16 +127,16 @@ class AddCollectionsModal extends React.Component {
     }
   }
 
-  _initFromHash(){
+  _initFromHash() {
     // pre load collections if listed in the url's hash
     let hash = global.location.hash.replace('#', '');
     let collections = hash.split('/');
     collections.forEach(collection_id => {
-      this._addCollection(collection_id)
-    })
+      this._addCollection(collection_id);
+    });
   }
 
-  _initFromSaved(collMapId){
+  _initFromSaved(collMapId) {
     // init the map from a json config
     let self = this;
     let failure = xmlhttp => {
@@ -153,7 +154,7 @@ class AddCollectionsModal extends React.Component {
       this.props.map.getView().setCenter(initial_config.center);
       this.props.map.getView().setZoom(initial_config.zoom);
 
-      initial_config.collections.forEach(coll_config =>{
+      initial_config.collections.forEach(coll_config => {
         this._addCollection(coll_config.id, coll_config.layers);
       });
     };
@@ -162,11 +163,10 @@ class AddCollectionsModal extends React.Component {
 
   componentDidMount() {
     let pathname = global.location.pathname.split('/');
-    if (pathname.length > 2 && parseInt(pathname[2])){
-      this._initFromSaved(parseInt(pathname[2]));
+    if (pathname.length > 3 && parseInt(pathname[3])){
+      this._initFromSaved(parseInt(pathname[3]));
       this.props.setSaved();
-    }
-    else if (global.location.hash !== ''){
+    } else if (global.location.hash !== '') {
       this._initFromHash();
     }
   }
@@ -176,7 +176,7 @@ class AddCollectionsModal extends React.Component {
     var filter = this.state.filter || '';
     url = url + '?q=' + filter;
     var self = this;
-    const {formatMessage} = this.props.intl;
+    const { formatMessage } = this.props.intl;
     var failureCb = function(xmlhttp) {
       delete self._request;
       if (xmlhttp.status === 0) {
@@ -187,7 +187,7 @@ class AddCollectionsModal extends React.Component {
     };
     var successCb = function(xmlhttp) {
       delete self._request;
-      self.setState({collInfo: JSON.parse(xmlhttp.response)});
+      self.setState({ collInfo: JSON.parse(xmlhttp.response) });
     };
     self._request = util.doGET(url, successCb, failureCb);
   }
@@ -202,16 +202,16 @@ class AddCollectionsModal extends React.Component {
   }
 
   _onFilterChange(proxy, value) {
-    this.setState({filter: value});
+    this.setState({ filter: value });
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if(JSON.stringify(prevState.filter) != JSON.stringify(this.state.filter)){
+  componentDidUpdate(prevProps, prevState) {
+    if (JSON.stringify(prevState.filter) != JSON.stringify(this.state.filter)) {
       this._getCaps();
     }
   }
 
-  _addCollection(collection_id, initial_config=null) {
+  _addCollection(collection_id, initial_config = null) {
     // Add a whole collection to the map, managing grouping in mapsets
     var map = this.props.map;
     var url = this.state.sources.full;
@@ -224,7 +224,10 @@ class AddCollectionsModal extends React.Component {
         let layers = new ol.Collection();
 
         map_set.layers.forEach(layer => {
-          if (!initial_config || (initial_config && initial_config.hasOwnProperty(layer.id))){
+          if (
+            !initial_config ||
+            (initial_config && initial_config.hasOwnProperty(layer.id))
+          ) {
             var the_layer = new ol.layer.Tile({
               title: layer.title,
               source: new ol.source.XYZ({
@@ -237,32 +240,36 @@ class AddCollectionsModal extends React.Component {
                 parseFloat(layer.bbox_y1)
               ],
               isRemovable: true,
-              extent: ol.proj.transformExtent([
-                parseFloat(layer.bbox_x0),
-                parseFloat(layer.bbox_y0),
-                parseFloat(layer.bbox_x1),
-                parseFloat(layer.bbox_y1)],
-                'EPSG:4326','EPSG:3857')
+              extent: ol.proj.transformExtent(
+                [
+                  parseFloat(layer.bbox_x0),
+                  parseFloat(layer.bbox_y0),
+                  parseFloat(layer.bbox_x1),
+                  parseFloat(layer.bbox_y1)
+                ],
+                'EPSG:4326',
+                'EPSG:3857'
+              )
             });
             // add some parameter that will be used in the layer list
             the_layer.set('storeType', layer.storeType);
             the_layer.set('typename', layer.typename);
-            the_layer.set('djmpId', layer.djmp_id);
+            the_layer.set('layerId', layer.id);
           }
 
           // Set layer initial config if available
-          if (initial_config && initial_config.hasOwnProperty(layer.id)){
+          if (initial_config && initial_config.hasOwnProperty(layer.id)) {
             let layer_conf = initial_config[layer.id];
             the_layer.setOpacity(layer_conf.opacity);
             // if there's the initial config then only load layers in the config
             layers.insertAt(layer_conf.index, the_layer);
-          }else if(!initial_config){
+          } else if (!initial_config) {
             // if no initial config then load the whole collection as it is
             layers.push(the_layer);
           }
         });
 
-        if (layers.getLength() > 0){
+        if (layers.getLength() > 0) {
           map_sets.push(
             new ol.layer.Group({
               title: map_set.name,
@@ -299,11 +306,14 @@ class AddCollectionsModal extends React.Component {
         action: {
           type: 'add-collection',
           collection: coll_data
-       }
+        }
       });
       let view = map.getView();
-      view.fit(ol.proj.transformExtent(coll_extent, 'EPSG:4326', view.getProjection()), map.getSize());
-    }
+      view.fit(
+        ol.proj.transformExtent(coll_extent, 'EPSG:4326', view.getProjection()),
+        map.getSize()
+      );
+    };
 
     var failureCb = xmlhttp => {
       if (xmlhttp.status === 0) {
@@ -316,29 +326,35 @@ class AddCollectionsModal extends React.Component {
     //  only add the collection if is not on the map already
     let coll_exists = false;
     map.getLayers().forEach(layer => {
-      if (layer.get('coll_id') == collection_id){
+      if (layer.get('coll_id') == collection_id) {
         coll_exists = true;
       }
     });
-    if (!coll_exists){
+    if (!coll_exists) {
       util.doGET(url + collection_id + '/', successCb, failureCb);
     }
   }
 
   _getCollectionMarkup(collInfo) {
     var collections;
-    if (collInfo.objects){
+    if (collInfo.objects) {
       collections = collInfo.objects.map(collection => {
         return (
           <ListItem
-            style={{display: 'block'}}
-            leftCheckbox={<Checkbox onCheck={this._onCheck.bind(this, collection)} />}
-            rightIcon={ <FolderIcon />}
+            style={{ display: 'block' }}
+            leftCheckbox={
+              <Checkbox onCheck={this._onCheck.bind(this, collection)} />
+            }
+            rightIcon={<FolderIcon />}
             initiallyOpen={true}
             key={collection.collection_id}
             primaryText={
-              <div className='layer-title-empty'>{collection.collection_id} - {collection.collection_type.name} in {collection.region.name}</div>
-            }/>
+              <div className="layer-title-empty">
+                {collection.collection_id} - {collection.collection_type.name}{' '}
+                in {collection.region.name}
+              </div>
+            }
+          />
         );
       });
     }
@@ -348,7 +364,7 @@ class AddCollectionsModal extends React.Component {
     if (checked) {
       this._checkedLayers.push(collection);
     } else {
-      var idx = this._checkedLayers.indexOf(collection)
+      var idx = this._checkedLayers.indexOf(collection);
       if (idx > -1) {
         this._checkedLayers.splice(idx, 1);
       }
@@ -357,11 +373,11 @@ class AddCollectionsModal extends React.Component {
 
   open() {
     this._getCaps();
-    this.setState({open: true});
+    this.setState({ open: true });
   }
 
   close() {
-    this.setState({open: false});
+    this.setState({ open: false });
   }
 
   addCollections() {
@@ -378,7 +394,7 @@ class AddCollectionsModal extends React.Component {
 
   render() {
     this._checkedLayers = [];
-    const {formatMessage} = this.props.intl;
+    const { formatMessage } = this.props.intl;
     var layers;
     if (this.state.collInfo) {
       var collInfo = this._getCollectionMarkup(this.state.collInfo);
@@ -386,33 +402,46 @@ class AddCollectionsModal extends React.Component {
     }
     var error;
     if (this.state.error === true) {
-      error = (<Snackbar
-        autoHideDuration={5000}
-        style={{transitionProperty : 'none'}}
-        bodyStyle={{lineHeight: '24px', height: 'auto'}}
-        open={this.state.errorOpen}
-        message={formatMessage(messages.errormsg, {msg: this.state.msg})}
-        onRequestClose={this._handleRequestClose.bind(this)}
-      />);
+      error = (
+        <Snackbar
+          autoHideDuration={5000}
+          style={{ transitionProperty: 'none' }}
+          bodyStyle={{ lineHeight: '24px', height: 'auto' }}
+          open={this.state.errorOpen}
+          message={formatMessage(messages.errormsg, { msg: this.state.msg })}
+          onRequestClose={this._handleRequestClose.bind(this)}
+        />
+      );
     }
     var actions = [
       <FlatButton
         primary={true}
         label={formatMessage(messages.addbutton)}
         onTouchTap={this.addCollections.bind(this)}
-        labelStyle={{color: CustomTheme.palette.textColor}}
+        labelStyle={{ color: CustomTheme.palette.textColor }}
       />,
       <FlatButton
         label={formatMessage(messages.closebutton)}
         onTouchTap={this.close.bind(this)}
-        labelStyle={{color: CustomTheme.palette.secondaryTextColor}}
+        labelStyle={{ color: CustomTheme.palette.secondaryTextColor }}
       />
     ];
     return (
-      <Dialog className={classNames('sdk-component add-layer-modal', this.props.className)}  actions={actions} autoScrollBodyContent={true} modal={true} title={formatMessage(messages.title)} open={this.state.open} onRequestClose={this.close.bind(this)}>
+      <Dialog
+        className={classNames(
+          'sdk-component add-layer-modal',
+          this.props.className
+        )}
+        actions={actions}
+        autoScrollBodyContent={true}
+        modal={true}
+        title={formatMessage(messages.title)}
+        open={this.state.open}
+        onRequestClose={this.close.bind(this)}
+      >
         <TextField
           floatingLabelText={formatMessage(messages.filtertitle)}
-          floatingLabelStyle={{color: CustomTheme.palette.primary3Color}}
+          floatingLabelStyle={{ color: CustomTheme.palette.primary3Color }}
           onChange={this._onFilterChange.bind(this)}
         />
         {layers}
@@ -456,4 +485,4 @@ AddCollectionsModal.childContextTypes = {
   muiTheme: React.PropTypes.object.isRequired
 };
 
-export default injectIntl(AddCollectionsModal, {withRef: true});
+export default injectIntl(AddCollectionsModal, { withRef: true });

@@ -81,10 +81,10 @@ export default class LatestCollections extends React.Component {
     let selectInteraction = null;
     this.props.map.getInteractions().forEach(interaction => {
       if (interaction instanceof ol.interaction.Select){
-        selectInteraction =  interaction; 
+        selectInteraction =  interaction;
       }
     });
-    
+
     return (
       <div id="latest_collections" style={styles.root}>
         <TextField
@@ -92,7 +92,7 @@ export default class LatestCollections extends React.Component {
             floatingLabelText="Search"
             onChange={this._onSearch}
             className={'collectionsSearch'}
-            floatingLabelFocusStyle={{'color': 'rgba(255, 166, 77, 1)'}}
+            floatingLabelFocusStyle={{'color': 'rgba(255, 255, 255, 1)'}}
           />
         <GridList
           cellHeight={180}
@@ -106,7 +106,7 @@ export default class LatestCollections extends React.Component {
               collection={collection}
               map={this.props.map}
               interaction={selectInteraction}
-            > 
+            >
             <img src={collection.thumbnail_url} />
             </CollSnippet>
           ))}

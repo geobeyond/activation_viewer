@@ -71,7 +71,9 @@ export default class CollInfoPanel extends Component {
             borderRight: '1px solid #BDBDBD',
             borderRadius: '3px 3px 0 0',
           }}
-          rippleColor={'#faa73f'}
+          rippleColor = {
+            '#17344e'
+          }
         />
         <ReactCSSTransitionGroup
           transitionName="infoPanelContent"

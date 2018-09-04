@@ -21,8 +21,9 @@ from .models import Collection, ExternalLayer, MapSetLayer, MapSet
 
 _PERMISSION_MSG_VIEW = "You are not permitted to view this collection"
 
+
 def _resolve_collection(request, collection_id, permission='collection.view_collection',
-                   msg=_PERMISSION_MSG_VIEW):
+                        msg=_PERMISSION_MSG_VIEW):
     """
     Resolve the collection by the provided collection_id and check the optional permission.
     """
@@ -31,6 +32,7 @@ def _resolve_collection(request, collection_id, permission='collection.view_coll
         raise PermissionDenied(msg)
 
     return collection
+
 
 def collection_detail(request, collection_id, template="collection_detail.html"):
     collection = _resolve_collection(request, collection_id)
@@ -43,6 +45,7 @@ def collection_detail(request, collection_id, template="collection_detail.html")
         'external_layers': ExternalLayer.objects.filter(collection=collection)
     }
     return render_to_response(template, RequestContext(request, context_dict))
+
 
 def collection_permissions(request, collection_id):
     collection = _resolve_collection(request, collection_id)
@@ -69,6 +72,7 @@ def collection_permissions(request, collection_id):
             'No methods other than get and post are allowed',
             status=401,
             content_type='text/plain')
+
 
 def downloadLayers(request):
     if request.method == 'GET':
@@ -118,7 +122,7 @@ def downloadLayers(request):
                     '%s.zip' % zip_name)
 
             resp = HttpResponse(s.getvalue(), content_type = "application/x-zip-compressed")
-            resp['Content-Disposition'] = 'attachment; filename=%s' % 'EMS_collections_layers.zip'
+            resp['Content-Disposition'] = 'attachment; filename=%s' % 'collections_layers.zip'
             return resp
 
         else:

@@ -40,6 +40,7 @@ import pureRender from 'pure-render-decorator';
 import Divider from 'material-ui/Divider';
 import 'boundless-sdk/components/LayerList.css';
 import CustomTheme from '../theme';
+import AppConfig from '../constants/AppConfig';
 
 
 const messages = defineMessages({
@@ -289,7 +290,12 @@ class CollectionsList extends React.Component {
     // If the map is already saved, do a PUT request
     let is_put = copy ? false : this.state.saved;
 
-    let url = is_put ? '/api/coll-maps/' + global.location.pathname.split('/')[3] : '/api/coll-maps/';
+let url = is_put
+  ? AppConfig.LIST_MAPS_URL + global
+    .location
+    .pathname
+    .split('/')[3]
+  : AppConfig.LIST_MAPS_URL;
     let csrf;
     for (let cookie in document.cookie.split(';')) {
       if (cookie.indexOf('csrftoken') !== -1){

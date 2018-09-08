@@ -6,6 +6,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {List} from 'material-ui/List';
 import ViewerAppBar from './components/ViewerAppBar.jsx';
 import CustomTheme from './theme';
+import LatestMaps from './components/MapsGrid.jsx';
 
 injectTapEventPlugin();
 
@@ -23,8 +24,7 @@ class App extends React.Component {
     return (
       <div id='content'>
         <ViewerAppBar page={'maps'} />
-        <MapPanel id='map' map={map} useHistory={false} />
-        <LatestCollections map={map} />
+        <LatestMaps />
       </div>
     );
   }

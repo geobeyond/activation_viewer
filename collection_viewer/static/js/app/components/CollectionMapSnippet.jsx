@@ -81,7 +81,7 @@ class CollMapSnippet extends Component {
   }
 
   onSnippetclick() {
-    window.location = AppConfig.COMPOSER_URL + '#' + this.props.collmap.map_id;
+    window.location = AppConfig.COMPOSER_URL + '/' + this.props.collmap.id;
   }
 
   render() {
@@ -102,9 +102,9 @@ class CollMapSnippet extends Component {
     const mergedRootStyles = Object.assign(styles.root, style);
 
     let titleBar = (
-      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function () { window.location = AppConfig.COMPOSER_URL + '#' + collmap.map_id }}>
+      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function () { window.location = AppConfig.COMPOSER_URL + '/' + collmap.id }}>
         <div style={prepareStyles(styles.titleWrap)}>
-          <div style={prepareStyles(styles.title)}>{this.props.collmap.map_id}</div>
+          <div style={prepareStyles(styles.title)}>{this.props.collmap.id}</div>
           {/* <div style={prepareStyles(styles.subtitle)}>
           {this.props.collection.collection_type.name} in {this.props.collection.region.name}
         </div> */}

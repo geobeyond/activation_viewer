@@ -5,6 +5,7 @@ import ol from 'openlayers';
 import 'whatwg-fetch';
 import queryString from 'query-string';
 import TextField from 'material-ui/TextField';
+import AppConfig from '../constants/AppConfig.js';
 
 const styles = {
   root: {
@@ -40,7 +41,8 @@ export default class LatestCollections extends React.Component {
   _doQuery(){
     let self = this;
     let query_string = this._prepareQueryString();
-    let url = query_string === '' ? COLLECTIONS_API : COLLECTIONS_API + '?' + query_string;
+    let url = query_string === '' ? AppConfig.FULL_COLLECTIONS_URL
+      : AppConfig.FULL_COLLECTIONS_URL + '?' + query_string;
     fetch(url,{
       credentials: 'same-origin'
     })

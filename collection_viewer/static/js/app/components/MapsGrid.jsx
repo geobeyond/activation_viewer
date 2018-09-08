@@ -98,7 +98,7 @@ export default class LatestMaps extends React.Component {
         >
           {this.state.maps.map((collmap) => (
             <CollMapSnippet
-              key={collmap.map_id}
+              key={collmap.id}
               collmap={collmap}
             >
             <img src={collmap.thumbnail_url} />

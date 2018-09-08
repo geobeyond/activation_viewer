@@ -22,6 +22,7 @@
     </div>
     <script type="text/javascript">
         COLLECTIONS_API = '{% url 'api_dispatch_list' api_name='api' resource_name='collections' %}';
+        COLLECTIONS_MAPS_API = '{% url 'api_dispatch_list' api_name='api' resource_name='coll-maps' %}';
     </script>
     {% if DEBUG_REACT %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>

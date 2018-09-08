@@ -91,8 +91,8 @@ class Composer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-     saveOpen: false,
-     errorOpen: false
+      saveOpen: false,
+      errorOpen: false
     }
   }
 
@@ -109,9 +109,9 @@ class Composer extends React.Component {
   }
 
   _showSaveMsg() {
-   this.setState({
-     saveOpen: true
-   });
+    this.setState({
+      saveOpen: true
+    });
   }
 
   _hideErrMsg() {
@@ -121,10 +121,10 @@ class Composer extends React.Component {
   }
 
   _showErrMsg(text) {
-   this.setState({
-     errorOpen: true,
-     errorText: text
-   });
+    this.setState({
+      errorOpen: true,
+      errorText: text
+    });
   }
 
   getErrorMsg() {
@@ -145,18 +145,18 @@ class Composer extends React.Component {
   render() {
     let save_msg;
     if (this.state.saveOpen){
-     save_msg = (<Snackbar
-       autoHideDuration={3000}
-       bodyStyle={{lineHeight: '24px', height: 'auto', maxWidth: '150px', minWidth: '0'}}
-       style={{zIndex: 100000, marginLeft: '50px'}}
-       open={this.state.saveOpen}
-       message={'Map correctly saved Share the current url'}
-       onRequestClose={this._hideSaveMsg.bind(this)}
-     />)
+      save_msg = (<Snackbar
+        autoHideDuration={3000}
+        bodyStyle={{lineHeight: '24px', height: 'auto', maxWidth: '150px', minWidth: '0'}}
+        style={{zIndex: 100000, marginLeft: '50px'}}
+        open={this.state.saveOpen}
+        message={'Map correctly saved Share the current url'}
+        onRequestClose={this._hideSaveMsg.bind(this)}
+      />)
     }
     let error_msg;
     if (this.state.errorOpen){
-     error_msg = this.getErrorMsg()
+      error_msg = this.getErrorMsg()
     }
     return (
       <div id='content'>
@@ -175,7 +175,7 @@ class Composer extends React.Component {
                 className={'overlays'}
                 filter={filterBaseLayersOut}
                 showOnStart={true}
-                addLayer={{sources: {list: '/api/collections/', full: '/api/collections-full/'}}}
+                addLayer={{sources: {list: AppConfig.LIST_COLLECTIONS_URL, full: AppConfig.FULL_COLLECTIONS_URL}}}
                 showOpacity={true}
                 showDownload={true}
                 showGroupContent={true}

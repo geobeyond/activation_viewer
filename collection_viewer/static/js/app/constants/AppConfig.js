@@ -1,5 +1,5 @@
 export default {
   COMPOSER_URL: '/geocollections/composer',
-  LIST_ACTIVATIONS_URL: '/api/collections/',
-  FULL_ACTIVATIONS_URL: '/api/collections-full/'
+  LIST_COLLECTIONS_URL: '/api/collections/',
+  FULL_COLLECTIONS_URL : '/api/collections-full/'
 };

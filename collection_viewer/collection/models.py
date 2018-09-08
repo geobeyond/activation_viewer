@@ -258,6 +258,8 @@ class CollectionMaps(models.Model):
         order, opacity and collections
     """
     config = models.CharField(max_length=6000, null=True)
+    slug = models.SlugField(default="")
+    thumbnail_url = models.CharField(max_length=256, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Collection maps'

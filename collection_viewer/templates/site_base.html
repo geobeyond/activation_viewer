@@ -16,11 +16,17 @@
     <li>
         <a href="{% url "viewer" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore Collections" %}</a>
     </li>
+    <li>
+        <a href="{% url "collection_maps" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans " Explore Maps of Collections" %}</a>
+    </li>
 </ul>
 {% else %}
 <ul class="dropdown-menu">
     <li>
         <a href="{% url "viewer" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore Collections" %}</a>
+    </li>
+    <li>
+        <a href="{% url "collection_maps" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans " Explore Maps of Collections" %}</a>
     </li>
 </ul>
 </li>

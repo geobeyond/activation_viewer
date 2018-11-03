@@ -28,7 +28,7 @@ urlpatterns = patterns(
         name='composer'),
     url(r'^geocollections/maps/?',
         TemplateView.as_view(template_name='maps.html'),
-        name='maps'),
+        name='collection_maps'),
     url(r'^geocollections/', include('collection_viewer.collection.urls')),
     url(r'', include(api.urls)),
 ) + urlpatterns

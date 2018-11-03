@@ -221,7 +221,7 @@ class CollSnippet extends Component {
   }
 
   onSnippetclick(){
-    window.location=AppConfig.COMPOSER_URL + '/' + this.props.collection.collection_id;
+    window.location=AppConfig.COMPOSER_URL + '/#' + this.props.collection.collection_id;
   }
 
   _selectComponent(){
@@ -331,7 +331,7 @@ class CollSnippet extends Component {
 
 
     let titleBar = (
-      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function(){window.location=AppConfig.COMPOSER_URL + '/' + collection.collection_id}}>
+      <div key="titlebar" className={'snippetTitle'} style={prepareStyles(styles.titleBar)} onClick={function(){window.location=AppConfig.COMPOSER_URL + '/#' + collection.collection_id}}>
         <div style={prepareStyles(styles.titleWrap)}>
           <div style={prepareStyles(styles.title)}>{this.props.collection.collection_id}</div>
           <div style={prepareStyles(styles.subtitle)}>

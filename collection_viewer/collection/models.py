@@ -3,6 +3,7 @@ import os
 import logging
 from PIL import Image
 import requests
+import ast
 from urlparse import urljoin
 from collections import OrderedDict
 from django.db import models
@@ -267,6 +268,62 @@ class CollectionMaps(models.Model):
     def __unicode__(self):
         return '%s' % self.pk
 
+    def set_thumbnail_from_config(self):
+        thumbnail_name = "map-{0}-thumb.png".format(
+            self.id
+        )
+        thumbnail_dir = os.path.join('thumbs', thumbnail_name)
+        upload_path = os.path.join(settings.MEDIA_ROOT, thumbnail_dir)
+        thumb = None
+        map_layers = OrderedDict()
+        config_collections = ast.literal_eval(self.config)["collections"]
+        duplicated_lyrs = []
+        for conf in config_collections:
+            lyrs = [conf["layers"].keys() for conf in config_collections]
+            for items in lyrs:
+                for item in items:
+                    duplicated_lyrs.append(item)
+            for i in list(set(duplicated_lyrs)):
+                lyr = Layer.objects.get(pk=i)
+                map_layers.update(
+                    {
+                        "{0}".format(
+                            os.path.basename(lyr.detail_url)
+                        ): "{0}".format(
+                            lyr.thumbnail_url
+                        )
+                    }
+                )
+        local_layers = map_layers.keys()
+        layers = ",".join(local_layers).encode('utf-8')
+        params = {
+            'layers': layers,
+            'format': 'image/png8',
+            'width': 200,
+            'height': 150,
+            'TIME': '-99999999999-01-01T00:00:00.0Z/99999999999-01-01T00:00:00.0Z'
+        }
+        p = "&".join("%s=%s" % item for item in params.items())
+        thumbnail_create_url = ogc_server_settings.LOCATION + \
+            "wms/reflect?" + p
+        try:
+            thumb = requests.get(thumbnail_create_url, stream=True)
+            thumb.raw.decode_content = True
+            thumb_result = Image.open(thumb.raw)
+
+            thumb_result.save(upload_path)
+        except Exception:
+            logger.error(
+                'Error when generating the thumbnail for resource %s.' %
+                self.id)
+            logger.error('Check permissions for file %s.' % upload_path)
+
+        CollectionMaps.objects.filter(
+            id=self.id
+        ).update(thumbnail_url=urljoin(
+            settings.SITEURL, os.path.join(settings.MEDIA_URL, thumbnail_dir)
+        ))
+
 
 class ExternalLayer(models.Model):
     """External layers related to a collection"""
@@ -285,7 +342,13 @@ def mapset_layers_changed(instance, *args, **kwargs):
     instance.collection.set_bbox_from_mapsets()
     instance.collection.set_thumbnail_from_mapsets()
 
+def collectionmaps_changed(instance, *args, **kwargs):
+    instance.set_thumbnail_from_config()
+
 
 signals.m2m_changed.connect(
     mapset_layers_changed, sender=MapSet.layers.through
+)
+signals.post_save.connect(
+    collectionmaps_changed, sender=CollectionMaps
 )

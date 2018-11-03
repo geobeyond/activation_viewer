@@ -19,11 +19,12 @@ from geonode.maps.models import Map
 
 from .models import Collection, ExternalLayer, MapSetLayer, MapSet
 
-_PERMISSION_MSG_VIEW = "You are not permitted to view this collection"
+_PERMISSION_MSG_VIEW_COLL = "You are not permitted to view this collection"
+# _PERMISSION_MSG_VIEW_MAP = "You are not permitted to view this map"
 
 
 def _resolve_collection(request, collection_id, permission='collection.view_collection',
-                        msg=_PERMISSION_MSG_VIEW):
+                        msg=_PERMISSION_MSG_VIEW_COLL):
     """
     Resolve the collection by the provided collection_id and check the optional permission.
     """
@@ -32,6 +33,18 @@ def _resolve_collection(request, collection_id, permission='collection.view_coll
         raise PermissionDenied(msg)
 
     return collection
+
+
+# def _resolve_map(request, map_id, permission='collection.view_map',
+#                         msg=_PERMISSION_MSG_VIEW_COLL):
+#     """
+#     Resolve the map by the provided map_id and check the optional permission.
+#     """
+#     map = CollectionMaps.objects.get(map_id=map_id)
+#     if not request.user.has_perm(permission, map):
+#         raise PermissionDenied(msg)
+
+#     return map
 
 
 def collection_detail(request, collection_id, template="collection_detail.html"):
@@ -45,6 +58,15 @@ def collection_detail(request, collection_id, template="collection_detail.html")
         'external_layers': ExternalLayer.objects.filter(collection=collection)
     }
     return render_to_response(template, RequestContext(request, context_dict))
+
+
+# def map_detail(request, map_id, template="map_detail.html"):
+#     map = _resolve_map(request, map_id)
+#     context_dict = {
+#         'map': map,
+#         'perms_list': get_perms(request.user, map)
+#     }
+#     return render_to_response(template, RequestContext(request, context_dict))
 
 
 def collection_permissions(request, collection_id):
@@ -72,6 +94,33 @@ def collection_permissions(request, collection_id):
             'No methods other than get and post are allowed',
             status=401,
             content_type='text/plain')
+
+
+# def map_permissions(request, map_id):
+#     map = _resolve_map(request, map_id)
+
+#     if request.method == 'POST':
+#         permission_spec = json.loads(request.body)
+#         map.set_permissions(permission_spec)
+
+#         return HttpResponse(
+#             json.dumps({'success': True}),
+#             status=200,
+#             content_type='text/plain'
+#         )
+
+#     elif request.method == 'GET':
+#         permission_spec = _perms_info_json(resource)
+#         return HttpResponse(
+#             json.dumps({'success': True, 'permissions': permission_spec}),
+#             status=200,
+#             content_type='text/plain'
+#         )
+#     else:
+#         return HttpResponse(
+#             'No methods other than get and post are allowed',
+#             status=401,
+#             content_type='text/plain')
 
 
 def downloadLayers(request):

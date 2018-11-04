@@ -274,6 +274,8 @@ class CollectionMaps(models.Model):
         )
         thumbnail_dir = os.path.join('thumbs', thumbnail_name)
         upload_path = os.path.join(settings.MEDIA_ROOT, thumbnail_dir)
+        if os.path.exists(upload_path):
+            os.remove(upload_path)
         thumb = None
         map_layers = OrderedDict()
         config_collections = ast.literal_eval(self.config)["collections"]

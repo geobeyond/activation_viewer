@@ -104,7 +104,7 @@ INSTALLED_APPS = INSTALLED_APPS + (
 # Location of url mappings
 ROOT_URLCONF = 'collection_viewer.urls'
 
-DEBUG = True
+DEBUG = False
 DEBUG_REACT = False
 
 REACT_DEV_SERVER = "http://localhost:3000"

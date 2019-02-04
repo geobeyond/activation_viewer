@@ -28,7 +28,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
     <script src="http://localhost:3000/build/home-debug.js"></script>
     {% else %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
+    <script src="{{ STATIC_URL }}js/app/build/home-debug.js"></script>
+    {% comment %}
     <script src="{{ STATIC_URL }}js/app/dist/home.js"></script>
+    {% endcomment %}
     {% endif %}
 </body>
 </html>

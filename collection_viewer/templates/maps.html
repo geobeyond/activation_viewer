@@ -28,7 +28,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
     <script src="http://localhost:3000/build/maps-debug.js"></script>
     {% else %}
-    <script src="{{ STATIC_URL }}maps.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
+    <script src="{{ STATIC_URL }}js/app/build/maps-debug.js"></script>
+    {% comment %}
+    <script src="{{ STATIC_URL }}js/app/dist/maps.js"></script>
+    {% endcomment %}
     {% endif %}
 </body>
 </html>

@@ -32,23 +32,26 @@ SITENAME = 'collection_viewer'
 # It is used for relative settings elsewhere.
 LOCAL_ROOT = os.path.abspath(os.path.dirname(__file__))
 
+DEBUG = False
+
 WSGI_APPLICATION = "collection_viewer.wsgi.application"
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join('development.db'),
-    },
-    # vector datastore for uploads
-    # 'datastore' : {
-    #    'ENGINE': 'django.contrib.gis.db.backends.postgis',
-    #    'NAME': '',
-    #    'USER' : '',
-    #    'PASSWORD' : '',
-    #    'HOST' : '',
-    #    'PORT' : '',
-    # }
-}
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join('development.db'),
+        },
+        # vector datastore for uploads
+        # 'datastore' : {
+        #    'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        #    'NAME': '',
+        #    'USER' : '',
+        #    'PASSWORD' : '',
+        #    'HOST' : '',
+        #    'PORT' : '',
+        # }
+    }
 
 
 # Additional directories which hold static files
@@ -104,7 +107,6 @@ INSTALLED_APPS = INSTALLED_APPS + (
 # Location of url mappings
 ROOT_URLCONF = 'collection_viewer.urls'
 
-DEBUG = False
 DEBUG_REACT = False
 
 REACT_DEV_SERVER = "http://localhost:3000"
